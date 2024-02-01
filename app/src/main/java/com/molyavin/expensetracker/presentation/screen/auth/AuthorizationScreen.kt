@@ -108,7 +108,9 @@ class AuthorizationScreen : BaseActivity() {
                         tint = Color.White,
                     )
                 },
-                onClick = { viewModel.login() },
+                onClick = {
+                    viewModel.login()
+                },
             )
 
             AuthFooter(

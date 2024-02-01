@@ -11,6 +11,7 @@ class DefaultNavigator(private val context: Context) : Navigator {
         context.startActivity(Intent(context, destination))
     }
 
+
     override fun navigateBack() {
         (context as? Activity)?.finish()
     }

@@ -29,8 +29,9 @@ import com.molyavin.expensetracker.presentation.viewmodel.home.HomeViewModel
 
 class HomeScreen : BaseActivity() {
 
-    override val viewModel: HomeViewModel =
+    override val viewModel: HomeViewModel by lazy {
         Injector.INSTANCE.provideHomeViewModel()
+    }
 
     @Composable
     override fun Content() {
@@ -39,7 +40,8 @@ class HomeScreen : BaseActivity() {
             Column(
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
             ) {
-                TopAppName()
+                TopAppName(onClick = { viewModel.startSetting() })
+
                 DefaultTwoTextBox(textTitle = "Total Balance", textNumber = 218500.0)
                 Spacer(modifier = Modifier.size(Spacing.S))
                 Row(

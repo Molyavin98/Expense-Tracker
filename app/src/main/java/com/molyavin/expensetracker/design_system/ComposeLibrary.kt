@@ -2,6 +2,7 @@ package com.molyavin.expensetracker.design_system
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -57,7 +58,8 @@ fun DefaultImageLogo(
 
 @Composable
 fun TopAppName(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) = Row(
     modifier = modifier.padding(16.dp),
     verticalAlignment = Alignment.CenterVertically
@@ -74,6 +76,7 @@ fun TopAppName(
     )
 
     Icon(
+        modifier = Modifier.clickable { onClick() },
         tint = AppTheme.colors.onBackground.primary,
         imageVector = Icons.Default.Settings,
         contentDescription = null
