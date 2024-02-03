@@ -27,4 +27,11 @@
     <string name="total_expense">Загальній витрати</string>
     <string name="view_statistics">Переглянути статистику</string>
     <string name="recent_transactions">Останні операції</string>
+    <string name="text_btn_delete">Видалити</string>
+    <string name="text_btn_edit">Редагувати</string>
+
+    <string name="text_text_field_label">Мітка</string>
+    <string name="text_text_field_amount">Сума</string>
+    <string name="text_text_field_label_hint">Введіть мітку</string>
+    <string name="text_text_field_amount_hint">Введіть суму</string>
 </resources>

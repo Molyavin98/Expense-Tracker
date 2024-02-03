@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,8 +19,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
@@ -29,7 +32,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DefaultButton(
     modifier: Modifier = Modifier,
-    text: String,
+    text: String? = null,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = AppTheme.colors.onBackground.primary,
@@ -54,7 +57,7 @@ fun DefaultButton(
         contentPadding = contentPadding,
     ) {
         Text(
-            text = text,
+            text = text ?: "",
             style = textStyle,
         )
 
@@ -127,6 +130,38 @@ fun ButtonAdd(
     trailingIcon = {
         Icon(imageVector = Icons.Default.Add, contentDescription = null)
     }
+)
+
+@Composable
+fun ButtonTransparent(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    border: BorderStroke = BorderStroke(1.dp, AppTheme.colors.onBackground.primary),
+    colors: ButtonColors = ButtonDefaults.buttonColors(
+        backgroundColor = Color.Transparent,
+        contentColor = AppTheme.colors.onBackground.primary,
+    ),
+    text: String
+) = DefaultButton(
+    modifier = modifier
+        .fillMaxWidth()
+        .padding(start = Spacing.S, end = Spacing.XS, bottom = Spacing.S)
+        .size(50.dp),
+    text = text,
+    colors = colors,
+    border = border,
+    onClick = onClick
+)
+
+@Composable
+fun ButtonClose(modifier: Modifier = Modifier, onClick: () -> Unit) = Icon(
+    modifier = modifier
+        .size(40.dp)
+        .clip(AppTheme.shapes.button)
+        .clickable { onClick() },
+    imageVector = Icons.Default.Close,
+    tint = AppTheme.colors.onBackground.primary,
+    contentDescription = null
 )
 
 

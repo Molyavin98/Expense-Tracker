@@ -2,6 +2,8 @@ package com.molyavin.expensetracker.design_system
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -13,7 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun RememberMeCheckBox(
+fun DefaultCheckBox(
     modifier: Modifier = Modifier,
     checkBoxState: Boolean,
     onValueChange: (Boolean) -> Unit,
@@ -43,3 +45,36 @@ fun RememberMeCheckBox(
         textAlign = TextAlign.Center
     )
 }
+
+@Composable
+fun DefaultRadioButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    isSelected: Boolean,
+    styleText: TextStyle = AppTheme.typography.p2,
+    checkedColor: Color = AppTheme.colors.onBackground.primary,
+    uncheckedColor: Color = AppTheme.colors.onBackground.mediumGrey,
+    text: String,
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.Start,
+    verticalAlignment = Alignment.CenterVertically,
+) {
+    RadioButton(
+        selected = isSelected,
+        onClick = onClick,
+        colors = RadioButtonDefaults.colors(
+            selectedColor = checkedColor,
+            unselectedColor = uncheckedColor,
+        )
+    )
+    Text(
+        text = text,
+        color = AppTheme.colors.onBackground.primary,
+        style = styleText,
+        textAlign = TextAlign.Center
+    )
+}
+
+
+

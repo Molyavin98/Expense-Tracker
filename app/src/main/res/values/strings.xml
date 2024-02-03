@@ -27,4 +27,11 @@
     <string name="total_expense">Total Expense</string>
     <string name="view_statistics">View statistics</string>
     <string name="recent_transactions">Recent transactions:</string>
+    <string name="text_btn_delete">Delete</string>
+    <string name="text_btn_edit">Edit</string>
+
+    <string name="text_text_field_label">Label</string>
+    <string name="text_text_field_amount">Amount</string>
+    <string name="text_text_field_label_hint">Enter label</string>
+    <string name="text_text_field_amount_hint">Enter label</string>
 </resources>

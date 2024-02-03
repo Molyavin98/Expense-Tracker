@@ -11,7 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -38,24 +42,29 @@ class HomeScreen : BaseActivity() {
     @Composable
     override fun Content() {
         Box(modifier = Modifier.fillMaxSize()) {
-
             Column(
-                modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+                modifier = Modifier.padding(
+                    start = Spacing.M,
+                    top = Spacing.S,
+                    end = Spacing.M,
+                    bottom = Spacing.S
+                )
             ) {
-                TopAppName(onClick = { viewModel.startSetting() })
+                TopAppName(onClick = viewModel::startSetting)
 
                 DefaultTwoTextBox(
                     textTitle = stringResource(id = R.string.total_balance),
                     textNumber = 218500.0
                 )
                 Spacer(modifier = Modifier.size(Spacing.S))
+
                 Row(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     DefaultTwoTextBox(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(end = 4.dp),
+                            .padding(end = Spacing.XS),
                         textTitle = stringResource(id = R.string.total_income),
                         colorSum = AppTheme.colors.primaryHover,
                         textNumber = 22000.0
@@ -64,7 +73,7 @@ class HomeScreen : BaseActivity() {
                     DefaultTwoTextBox(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(start = 4.dp),
+                            .padding(start = Spacing.XS),
                         textTitle = stringResource(id = R.string.total_expense),
                         colorSum = AppTheme.colors.error,
                         textNumber = 15000.0
@@ -73,9 +82,7 @@ class HomeScreen : BaseActivity() {
 
                 Spacer(modifier = Modifier.size(Spacing.M))
                 DefaultButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(),
+                    modifier = Modifier.fillMaxWidth(),
                     shape = AppTheme.shapes.small,
                     text = stringResource(id = R.string.view_statistics),
                     onClick = { })
@@ -86,8 +93,7 @@ class HomeScreen : BaseActivity() {
                     modifier = Modifier.wrapContentSize(),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-
-                    items(10) {
+                    items(100) {
                         TransactionsItem(
                             text = "Mac",
                             sum = 250.0,
@@ -98,11 +104,10 @@ class HomeScreen : BaseActivity() {
             }
 
             ButtonAdd(
-                onClick = { viewModel.addTransaction() },
+                onClick = viewModel::addTransaction,
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
-
         }
-
     }
+
 }
