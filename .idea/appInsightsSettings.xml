@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.molyavin.expensetracker" />
+                  <option name="mobileSdkAppId" value="1:127849241857:android:17126d7bffa521c7738f00" />
+                  <option name="projectId" value="expense-tracker-9f602" />
+                  <option name="projectNumber" value="127849241857" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
