@@ -1,9 +1,30 @@
 <resources>
-    <string name="app_name">Expense Tracker</string>
-    <string name="title_activity_add_transaction">AddTransactionActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="app_name" translatable="false">Expense Tracker</string>
+
+    <!-- Auth screen-->
+    <string name="welcome_app_text">Welcome in Expense Tracker</string>
+    <string name="checkbox_remember_me">Remember me</string>
+    <string name="text_btn_forgot_password">Forgot password?</string>
+    <string name="text_btn_log_in">Log in</string>
+    <string name="text_auth_footer_reg_account">Don`t have an account?</string>
+    <string name="text_auth_footer_btn">Sing up now.</string>
+
+    <!-- Registration screen-->
+    <string name="text_registration">Registration</string>
+    <string name="label_email">Email</string>
+    <string name="email_field_hint">Enter your email</string>
+    <string name="label_password">Password</string>
+    <string name="password_field_hint">Enter your password</string>
+    <string name="password_confirm_field_hint">Confirm password</string>
+    <string name="text_btn_create_account">Create on account</string>
+    <string name="text_reg_footer_log_in_account">Already have on account?</string>
+    <string name="text_reg_footer_btn">Sing in.</string>
+
+    <!-- Home screen-->
+    <string name="exit_from_account">Exit from account</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="total_income">Total Income</string>
+    <string name="total_expense">Total Expense</string>
+    <string name="view_statistics">View statistics</string>
+    <string name="recent_transactions">Recent transactions:</string>
 </resources>

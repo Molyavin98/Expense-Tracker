@@ -14,7 +14,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.molyavin.expensetracker.R
 import com.molyavin.expensetracker.design_system.AppTheme
 import com.molyavin.expensetracker.design_system.ButtonAdd
 import com.molyavin.expensetracker.design_system.DefaultButton
@@ -42,7 +44,10 @@ class HomeScreen : BaseActivity() {
             ) {
                 TopAppName(onClick = { viewModel.startSetting() })
 
-                DefaultTwoTextBox(textTitle = "Total Balance", textNumber = 218500.0)
+                DefaultTwoTextBox(
+                    textTitle = stringResource(id = R.string.total_balance),
+                    textNumber = 218500.0
+                )
                 Spacer(modifier = Modifier.size(Spacing.S))
                 Row(
                     modifier = Modifier.fillMaxWidth()
@@ -51,7 +56,7 @@ class HomeScreen : BaseActivity() {
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 4.dp),
-                        textTitle = "Total Income",
+                        textTitle = stringResource(id = R.string.total_income),
                         colorSum = AppTheme.colors.primaryHover,
                         textNumber = 22000.0
                     )
@@ -60,7 +65,7 @@ class HomeScreen : BaseActivity() {
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 4.dp),
-                        textTitle = "Total Expense",
+                        textTitle = stringResource(id = R.string.total_expense),
                         colorSum = AppTheme.colors.error,
                         textNumber = 15000.0
                     )
@@ -72,10 +77,10 @@ class HomeScreen : BaseActivity() {
                         .fillMaxWidth()
                         .padding(),
                     shape = AppTheme.shapes.small,
-                    text = "View statistics",
+                    text = stringResource(id = R.string.view_statistics),
                     onClick = { })
 
-                DefaultText(text = "Recent transactions:")
+                DefaultText(text = stringResource(id = R.string.recent_transactions))
 
                 LazyColumn(
                     modifier = Modifier.wrapContentSize(),

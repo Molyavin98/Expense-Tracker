@@ -22,7 +22,6 @@
         <activity
             android:name=".presentation.screen.transaction.AddTransactionScreen"
             android:exported="false"
-            android:label="@string/title_activity_add_transaction"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.ExpenseTracker"
             tools:ignore="LockedOrientationActivity" />
