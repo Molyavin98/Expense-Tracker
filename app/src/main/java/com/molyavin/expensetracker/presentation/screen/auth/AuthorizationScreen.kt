@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.molyavin.expensetracker.design_system.DefaultText
 import com.molyavin.expensetracker.design_system.DividerOr
@@ -50,7 +51,7 @@ class AuthorizationScreen : BaseActivity() {
                 idImage = R.drawable.app_icon
             )
 
-            DefaultText(text = "Welcome in Expense Tracker")
+            DefaultText(text = stringResource(id = R.string.welcome_app_text))
 
             val email by viewModel.email.collectAsState()
             val password by viewModel.password.collectAsState()
@@ -62,8 +63,8 @@ class AuthorizationScreen : BaseActivity() {
                     .weight(50f),
                 email = email,
                 onValueChange = { newPhone -> viewModel.setPhone(newPhone) },
-                label = "Email",
-                hint = "Enter your email",
+                label = stringResource(id = R.string.label_email),
+                hint = stringResource(id = R.string.email_field_hint),
             )
 
             DefaultPasswordField(
@@ -72,9 +73,9 @@ class AuthorizationScreen : BaseActivity() {
                     .weight(50f),
                 password = password,
                 onValueChange = { newPassword -> viewModel.setPassword(password = newPassword) },
-                label = "Password",
-                textForgotPassword = "Forgot password?",
-                hint = "Enter your password",
+                label = stringResource(id = R.string.label_password),
+                textForgotPassword = stringResource(id = R.string.text_btn_forgot_password),
+                hint = stringResource(id = R.string.password_field_hint),
             )
 
             RememberMeCheckBox(
@@ -83,7 +84,7 @@ class AuthorizationScreen : BaseActivity() {
                     .padding(start = 16.dp),
                 checkBoxState = statusCheckBox,
                 onValueChange = { viewModel.setStatusCheckBox(status = it) },
-                text = "Remember me"
+                text = stringResource(id = R.string.checkbox_remember_me)
             )
 
             DividerOr()
@@ -97,7 +98,7 @@ class AuthorizationScreen : BaseActivity() {
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 80.dp)
                     .fillMaxWidth(),
-                text = "Log in",
+                text = stringResource(id = R.string.text_btn_log_in),
                 trailingIcon = {
                     Icon(
                         modifier = Modifier
@@ -115,8 +116,8 @@ class AuthorizationScreen : BaseActivity() {
 
             AuthFooter(
                 modifier = Modifier.padding(bottom = 8.dp),
-                text = "Don`t have an account?",
-                textButton = "Sing up now.",
+                text = stringResource(id = R.string.text_auth_footer_reg_account),
+                textButton = stringResource(id = R.string.text_auth_footer_btn),
                 onClick = { viewModel.startRegistration() },
             )
         }

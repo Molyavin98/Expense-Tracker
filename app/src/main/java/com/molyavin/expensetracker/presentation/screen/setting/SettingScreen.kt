@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.molyavin.expensetracker.R
 import com.molyavin.expensetracker.design_system.DefaultButton
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.presentation.screen.BaseActivity
@@ -26,7 +28,7 @@ class SettingScreen : BaseActivity() {
                     .fillMaxWidth()
                     .padding(16.dp)
                     .align(Alignment.BottomCenter),
-                text = "Exit from account",
+                text = stringResource(id = R.string.exit_from_account),
                 onClick = { viewModel.logOut() }
             )
         }

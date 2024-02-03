@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Auth screen-->
+    <string name="welcome_app_text">Ласкаво просимо в Expense Tracker</string>
+    <string name="checkbox_remember_me">Запам\'ятати мене</string>
+    <string name="text_btn_forgot_password">Забули пароль?</string>
+    <string name="text_btn_log_in">Увійти</string>
+    <string name="text_auth_footer_reg_account">Ще не маєте облікового запису?</string>
+    <string name="text_auth_footer_btn">Зареєструйтеся зараз.</string>
+
+    <!-- Registration screen-->
+    <string name="text_registration">Реєстрація</string>
+    <string name="label_email">Електронна пошта</string>
+    <string name="email_field_hint">Введіть свою електронну пошту</string>
+    <string name="label_password">Пароль</string>
+    <string name="password_field_hint">Введіть свій пароль</string>
+    <string name="password_confirm_field_hint">Підтвердіть пароль</string>
+    <string name="text_btn_create_account">Створити обліковий запис</string>
+    <string name="text_reg_footer_log_in_account">Вже є обліковий запис?</string>
+    <string name="text_reg_footer_btn">Увійти.</string>
+
+    <!-- Home screen-->
+    <string name="exit_from_account">Вихід з акаунта</string>
+    <string name="total_balance">Загальний баланс</string>
+    <string name="total_income">Загальний дохід</string>
+    <string name="total_expense">Загальній витрати</string>
+    <string name="view_statistics">Переглянути статистику</string>
+    <string name="recent_transactions">Останні операції</string>
+</resources>

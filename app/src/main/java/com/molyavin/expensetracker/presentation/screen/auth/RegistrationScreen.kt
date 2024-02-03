@@ -15,9 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.molyavin.expensetracker.design_system.DefaultText
-import com.molyavin.expensetracker.design_system.DividerOr
 import com.molyavin.expensetracker.R
 import com.molyavin.expensetracker.design_system.AppTheme
 import com.molyavin.expensetracker.design_system.AuthFooter
@@ -26,6 +25,8 @@ import com.molyavin.expensetracker.design_system.DefaultEmailField
 import com.molyavin.expensetracker.design_system.DefaultImageLogo
 import com.molyavin.expensetracker.design_system.DefaultPasswordField
 import com.molyavin.expensetracker.design_system.DefaultSocialAuthButton
+import com.molyavin.expensetracker.design_system.DefaultText
+import com.molyavin.expensetracker.design_system.DividerOr
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.presentation.screen.BaseActivity
 import com.molyavin.expensetracker.presentation.viewmodel.auth.RegistrationViewModel
@@ -47,12 +48,11 @@ class RegistrationScreen : BaseActivity() {
                     .padding(24.dp),
                 idImage = R.drawable.app_icon
             )
-            DefaultText(text = "Registration")
+            DefaultText(text = stringResource(id = R.string.text_registration))
 
             val email by viewModel.email.collectAsState()
             val password by viewModel.password.collectAsState()
             val passwordConfirm by viewModel.passwordConfirm.collectAsState()
-
 
             DefaultEmailField(
                 modifier = Modifier
@@ -60,8 +60,8 @@ class RegistrationScreen : BaseActivity() {
                     .weight(50f),
                 email = email,
                 onValueChange = { viewModel.setPhone(it) },
-                label = "Email",
-                hint = "Enter your email",
+                label = stringResource(id = R.string.label_email),
+                hint = stringResource(id = R.string.email_field_hint),
             )
 
 
@@ -71,8 +71,8 @@ class RegistrationScreen : BaseActivity() {
                     .weight(50f),
                 password = password,
                 onValueChange = { viewModel.setPasswordOne(it) },
-                label = "Password",
-                hint = "Enter your password",
+                label = stringResource(id = R.string.label_password),
+                hint = stringResource(id = R.string.password_field_hint),
                 focusColor = AppTheme.colors.onBackground.grey,
                 unFocusColor = AppTheme.colors.onBackground.lightGrey,
             )
@@ -83,8 +83,8 @@ class RegistrationScreen : BaseActivity() {
                     .weight(50f),
                 password = passwordConfirm,
                 onValueChange = { viewModel.setPasswordTwo(it) },
-                label = "Password",
-                hint = "Confirm password",
+                label = stringResource(id = R.string.label_password),
+                hint = stringResource(id = R.string.password_confirm_field_hint),
             )
 
 
@@ -99,7 +99,7 @@ class RegistrationScreen : BaseActivity() {
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 80.dp)
                     .fillMaxWidth(),
-                text = "Create on account",
+                text = stringResource(id = R.string.text_btn_create_account),
                 trailingIcon = {
                     Icon(
                         modifier = Modifier
@@ -115,8 +115,8 @@ class RegistrationScreen : BaseActivity() {
 
             AuthFooter(
                 modifier = Modifier.padding(bottom = 8.dp),
-                text = "Already have on account?",
-                textButton = "Sing in.",
+                text = stringResource(id = R.string.text_reg_footer_log_in_account),
+                textButton = stringResource(id = R.string.text_reg_footer_btn),
                 onClick = { viewModel.startAuthScreen() },
             )
         }
