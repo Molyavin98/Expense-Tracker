@@ -47,7 +47,8 @@ private fun DefaultTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
     visualTransformation: VisualTransformation = VisualTransformation.None,
     styleText: TextStyle = AppTheme.typography.s3,
-    fieldShape: Shape = RoundedCornerShape(16.dp),
+    textColor: Color = AppTheme.colors.onBackground.primary,
+    fieldShape: Shape = RoundedCornerShape(8.dp),
     fieldBackgroundColor: Color = AppTheme.colors.onBackground.lightGrey,
     trailingIcon: Int? = null,
     fieldModifier: Modifier = Modifier,
@@ -99,7 +100,7 @@ private fun DefaultTextField(
                 Text(
                     text = hint,
                     style = hintStyle,
-                    color = AppTheme.colors.onBackground.primary
+                    color = AppTheme.colors.onBackground.mediumGrey
                 )
             },
             shape = fieldShape,
@@ -119,6 +120,7 @@ private fun DefaultTextField(
                 focusedLabelColor = focusColor,
                 unfocusedLabelColor = Color.Gray,
                 cursorColor = focusColor,
+                textColor = textColor
             ),
         )
     }
@@ -153,8 +155,8 @@ fun DefaultTextField(
     onValueChange: (TextFieldValue) -> Unit,
     label: String = "",
     hint: String,
-    focusColor: Color,
-    unFocusColor: Color
+    focusColor: Color = AppTheme.colors.onBackground.primary,
+    unFocusColor: Color = AppTheme.colors.onBackground.grey
 ) = DefaultTextField(
     value = value,
     onValueChange = onValueChange,

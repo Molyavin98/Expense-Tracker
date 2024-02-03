@@ -7,17 +7,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -94,7 +97,7 @@ fun DefaultTwoTextBox(
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
-        .height(100.dp)
+        .height(80.dp)
         .clip(AppTheme.shapes.small)
         .background(color = AppTheme.colors.onBackground.lightGrey),
     contentAlignment = Alignment.Center
@@ -128,278 +131,46 @@ fun TransactionsItem(
     colorSum: Color = if (profit) AppTheme.colors.primaryHover else AppTheme.colors.error,
     textStyle: TextStyle = AppTheme.typography.s3
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(AppTheme.shapes.small)
-            .height(50.dp)
-            .background(AppTheme.colors.onBackground.lightGrey)
-    ) {
-        Text(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp)
-                .align(Alignment.CenterVertically),
-            text = text,
-            color = colorTitle,
-            style = textStyle
-        )
-        Text(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .align(Alignment.CenterVertically),
-            text = if (profit) "+$sum" else "-$sum",
-            color = colorSum,
-            style = textStyle
-        )
-    }
-}
 
+    var isExpanded by remember { mutableStateOf(false) }
 
-/*@Composable
-fun ListElementItemButton(
-    iconImage: ImageVector,
-    colorTint: Color,
-    text: String,
-    textColor: Color,
-    textStyle: TextStyle,
-    onClick: () -> Unit,
-    buttonImage: ImageVector,
-    buttonColorTint: Color
-) {
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = true, color = Color.LightGray),
-                onClick = onClick
-            )
-            .padding(start = 20.dp, top = 10.dp, bottom = 10.dp, end = 20.dp),
-    ) {
-        Icon(
-            modifier = Modifier
-                .padding(end = 15.dp)
-                .size(40.dp)
-                .clip(shape = RoundedCornerShape(10.dp))
-                //.background(color = colorResource(id = R.color.background_button_profile))
-                .padding(10.dp),
-            imageVector = iconImage,
-            tint = colorTint,
-            contentDescription = null
-        )
-        Text(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-                .align(Alignment.CenterVertically),
-            text = text,
-            color = textColor,
-            style = textStyle
-        )
-
-        Icon(
-            modifier = Modifier
-                .size(16.dp)
-                .align(Alignment.CenterVertically),
-            imageVector = buttonImage,
-            tint = buttonColorTint,
-            contentDescription = null
-        )
-    }
-}*/
-
-/*
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DefaultCenterAlignedTopAppBar(
-    modifier: Modifier,
-    textTitle: String,
-    titleContentColor: Color,
-    textStyleTitle: TextStyle,
-    navigationOnClick: () -> Unit,
-    navigationIcon: ImageVector,
-    navigationIconTint: Color,
-    actionOnClick: () -> Unit,
-    actionIcon: ImageVector? = null,
-    actionIconTint: Color? = null,
-    containerColor: Color
-) {
-    CenterAlignedTopAppBar(
-        modifier = modifier,
-        title = {
+    Column(modifier = modifier
+        .fillMaxWidth()
+        .wrapContentHeight()
+        .clip(AppTheme.shapes.small)
+        .clickable { isExpanded = !isExpanded }
+        .background(AppTheme.colors.onBackground.lightGrey))
+    {
+        Row(modifier = Modifier.height(50.dp)) {
             Text(
-                text = textTitle,
-                color = titleContentColor,
-                style = textStyleTitle,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp)
+                    .align(Alignment.CenterVertically),
+                text = text,
+                color = colorTitle,
+                style = textStyle
             )
-        },
-        navigationIcon = {
-            IconButton(onClick = navigationOnClick) {
-                Icon(
-                    imageVector = navigationIcon,
-                    tint = navigationIconTint,
-                    contentDescription = null,
-                )
-            }
-        },
-        actions = {
-            IconButton(onClick = actionOnClick) {
-                if (actionIcon != null && actionIconTint != null) {
-                    Icon(
-                        imageVector = actionIcon,
-                        tint = actionIconTint,
-                        contentDescription = null,
-                    )
-                }
-            }
-        },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = containerColor,
-        )
-    )
-}*/
-
-
-/*@Composable
-fun DefaultGlideImage(
-    modifier: Modifier = Modifier,
-    contentScale: ContentScale,
-    urlImage: String,
-) {
-    GlideImage(
-        modifier = modifier,
-        model = urlImage,
-        contentScale = contentScale,
-        contentDescription = null,
-        loading = placeholder {
-            Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center),
-                    color = colorResource(id = R.color.default_button_color)
-                )
-            }
+            Text(
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .align(Alignment.CenterVertically),
+                text = if (profit) "+$sum" else "-$sum",
+                color = colorSum,
+                style = textStyle
+            )
         }
-    ) {
-
-        it.error("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
-
-    }
-
-}*/
-
-
-/*
-@Composable
-fun LazyList(
-    modifier: Modifier,
-    words: List<WordVM>,
-    modifierItem: Modifier,
-    containerColor: Int,
-    textStyleEngWord: TextStyle = MaterialTheme.typography.h3,
-    textStyleUAWord: TextStyle = MaterialTheme.typography.h4,
-    buttonModifier: Modifier,
-    modifierText: Modifier,
-    btnDeleteText: String,
-    btnDeleteClick: (Int) -> Unit,
-    btnEditText: String,
-    btnEditClick: (Int) -> Unit
-
-) {
-    val selectedItem = remember { mutableStateOf<WordVM?>(null) }
-
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        itemsIndexed(words) { index, word ->
-
-            val isItemSelected = word == selectedItem.value
-
-            Card(
-                modifier = modifierItem
-                    .clickable {
-                        if (isItemSelected) {
-                            selectedItem.value = null
-                        } else {
-                            selectedItem.value = word
-                        }
-                    },
-                colors = CardDefaults.cardColors(containerColor = colorResource(id = containerColor)),
-            ) {
-                Row() {
-
-                    Column(modifier = Modifier.weight(1f)) {
-
-                        Text(
-                            modifier = modifierText,
-                            text = "\uD83C\uDDEC\uD83C\uDDE7 ${word.eng}",
-                            style = textStyleEngWord
-                        )
-                        Text(
-                            modifier = modifier,
-                            text = "\uD83C\uDDFA\uD83C\uDDE6 ${word.ua}",
-                            style = textStyleUAWord
-                        )
-
-                    }
-
-                    val isFavorite = remember { mutableStateOf(false) }
-
-                    IconButton(modifier = Modifier.align(Alignment.CenterVertically),
-                        onClick = {
-                            isFavorite.value = !isFavorite.value
-                        }
-                    ) {
-                        Icon(
-                            imageVector = if (isFavorite.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                            contentDescription = null
-                        )
-                    }
-                }
-
-                if (isItemSelected) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-
-                        DefaultButton(
-                            modifier = buttonModifier,
-                            border = BorderStroke(1.dp, Color.White),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.Transparent,
-                                contentColor = colorResource(id = R.color.default_button_text_color)
-                            ),
-                            contentPadding = PaddingValues(0.dp),
-                            text = btnDeleteText,
-                            onClick = { btnDeleteClick(index) })
-
-                        DefaultButton(
-                            modifier = buttonModifier,
-                            border = BorderStroke(1.dp, Color.White),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.Transparent,
-                                contentColor = colorResource(id = R.color.default_button_text_color)
-                            ),
-                            contentPadding = PaddingValues(0.dp),
-                            text = btnEditText,
-                            onClick = { btnEditClick(index) })
-                    }
-                }
+        if (isExpanded) {
+            Row {
+                ButtonTransparent(
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(id = R.string.text_btn_delete),
+                    onClick = {})
+                ButtonTransparent(
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(id = R.string.text_btn_edit),
+                    onClick = {})
             }
         }
     }
 }
-
-*/
-
-
-
-
-
-
-
-
-

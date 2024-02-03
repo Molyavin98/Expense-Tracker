@@ -26,7 +26,7 @@ import com.molyavin.expensetracker.design_system.DefaultEmailField
 import com.molyavin.expensetracker.design_system.DefaultImageLogo
 import com.molyavin.expensetracker.design_system.DefaultPasswordField
 import com.molyavin.expensetracker.design_system.DefaultSocialAuthButton
-import com.molyavin.expensetracker.design_system.RememberMeCheckBox
+import com.molyavin.expensetracker.design_system.DefaultCheckBox
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.presentation.screen.BaseActivity
 import com.molyavin.expensetracker.presentation.viewmodel.auth.AuthorizationViewModel
@@ -78,7 +78,7 @@ class AuthorizationScreen : BaseActivity() {
                 hint = stringResource(id = R.string.password_field_hint),
             )
 
-            RememberMeCheckBox(
+            DefaultCheckBox(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp),
