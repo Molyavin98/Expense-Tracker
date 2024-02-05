@@ -28,10 +28,10 @@ import com.molyavin.expensetracker.design_system.DefaultPasswordField
 import com.molyavin.expensetracker.design_system.DefaultSocialAuthButton
 import com.molyavin.expensetracker.design_system.DefaultCheckBox
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseActivity
+import com.molyavin.expensetracker.presentation.screen.BaseScreen
 import com.molyavin.expensetracker.presentation.viewmodel.auth.AuthorizationViewModel
 
-class AuthorizationScreen : BaseActivity() {
+class AuthorizationScreen : BaseScreen() {
 
     override val viewModel: AuthorizationViewModel by lazy {
         Injector.INSTANCE.provideAuthorizationViewModel()

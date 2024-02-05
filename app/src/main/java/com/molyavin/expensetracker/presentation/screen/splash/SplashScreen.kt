@@ -16,11 +16,11 @@ import com.molyavin.expensetracker.design_system.DefaultImageLogo
 import com.molyavin.expensetracker.design_system.DefaultText
 import com.molyavin.expensetracker.design_system.Surface
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseActivity
+import com.molyavin.expensetracker.presentation.screen.BaseScreen
 import com.molyavin.expensetracker.presentation.viewmodel.spalsh.SplashViewModel
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreen : BaseActivity() {
+class SplashScreen : BaseScreen() {
 
     override val viewModel: SplashViewModel by lazy {
         Injector.INSTANCE.provideSplashViewModel()

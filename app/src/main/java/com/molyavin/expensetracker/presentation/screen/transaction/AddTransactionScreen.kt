@@ -19,10 +19,10 @@ import com.molyavin.expensetracker.design_system.DefaultRadioButton
 import com.molyavin.expensetracker.design_system.DefaultTextField
 import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseActivity
+import com.molyavin.expensetracker.presentation.screen.BaseScreen
 import com.molyavin.expensetracker.presentation.viewmodel.add_transaction.AddTransactionViewModel
 
-class AddTransactionScreen : BaseActivity() {
+class AddTransactionScreen : BaseScreen() {
 
     override val viewModel: AddTransactionViewModel =
         Injector.INSTANCE.provideAddTransactionViewModel()
@@ -32,7 +32,7 @@ class AddTransactionScreen : BaseActivity() {
         Column(
             modifier = Modifier.padding(Spacing.M)
         ) {
-            ButtonClose(onClick = {})
+            ButtonClose(onClick = { finish() })
 
             val label by viewModel.label.collectAsState()
             val amount by viewModel.amount.collectAsState()

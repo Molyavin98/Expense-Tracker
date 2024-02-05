@@ -18,7 +18,7 @@ import com.molyavin.expensetracker.design_system.Scaffold
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
 
-abstract class BaseActivity : ComponentActivity() {
+abstract class BaseScreen : ComponentActivity() {
 
     protected abstract val viewModel: BaseViewModel
 

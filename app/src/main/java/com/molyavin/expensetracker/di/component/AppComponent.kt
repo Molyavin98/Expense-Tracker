@@ -10,6 +10,7 @@ import com.molyavin.expensetracker.presentation.viewmodel.auth.RegistrationViewM
 import com.molyavin.expensetracker.presentation.viewmodel.home.HomeViewModel
 import com.molyavin.expensetracker.presentation.viewmodel.setting.SettingViewModel
 import com.molyavin.expensetracker.presentation.viewmodel.spalsh.SplashViewModel
+import com.molyavin.expensetracker.presentation.viewmodel.statistics.StatisticsViewModel
 import dagger.Component
 
 @AppScope
@@ -24,4 +25,5 @@ interface AppComponent {
     fun provideHomeViewModel(): HomeViewModel
     fun provideAddTransactionViewModel(): AddTransactionViewModel
     fun provideSettingViewModel(): SettingViewModel
+    fun provideStatisticsViewModel(): StatisticsViewModel
 }

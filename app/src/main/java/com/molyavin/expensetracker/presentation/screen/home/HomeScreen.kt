@@ -11,11 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -30,10 +26,10 @@ import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.design_system.TopAppName
 import com.molyavin.expensetracker.design_system.TransactionsItem
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseActivity
+import com.molyavin.expensetracker.presentation.screen.BaseScreen
 import com.molyavin.expensetracker.presentation.viewmodel.home.HomeViewModel
 
-class HomeScreen : BaseActivity() {
+class HomeScreen : BaseScreen() {
 
     override val viewModel: HomeViewModel by lazy {
         Injector.INSTANCE.provideHomeViewModel()
@@ -59,7 +55,9 @@ class HomeScreen : BaseActivity() {
                 Spacer(modifier = Modifier.size(Spacing.S))
 
                 Row(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = Spacing.S)
                 ) {
                     DefaultTwoTextBox(
                         modifier = Modifier
@@ -78,21 +76,26 @@ class HomeScreen : BaseActivity() {
                         colorSum = AppTheme.colors.error,
                         textNumber = 15000.0
                     )
+
                 }
-
-                Spacer(modifier = Modifier.size(Spacing.M))
-                DefaultButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = AppTheme.shapes.small,
-                    text = stringResource(id = R.string.view_statistics),
-                    onClick = { })
-
-                DefaultText(text = stringResource(id = R.string.recent_transactions))
 
                 LazyColumn(
                     modifier = Modifier.wrapContentSize(),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
+
+                    item {
+                        Spacer(modifier = Modifier.size(Spacing.M))
+                        DefaultButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = AppTheme.shapes.small,
+                            text = stringResource(id = R.string.view_statistics),
+                            onClick = viewModel::startStatisticsScreen
+                        )
+
+                        DefaultText(text = stringResource(id = R.string.recent_transactions))
+                    }
+
                     items(100) {
                         TransactionsItem(
                             text = "Mac",
