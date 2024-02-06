@@ -5,6 +5,7 @@ import com.molyavin.expensetracker.di.module.AppModule
 import com.molyavin.expensetracker.di.module.ToasterModule
 import com.molyavin.expensetracker.di.scope.AppScope
 import com.molyavin.expensetracker.presentation.viewmodel.add_transaction.AddTransactionViewModel
+import com.molyavin.expensetracker.presentation.viewmodel.add_transaction.EditTransactionViewModel
 import com.molyavin.expensetracker.presentation.viewmodel.auth.AuthorizationViewModel
 import com.molyavin.expensetracker.presentation.viewmodel.auth.RegistrationViewModel
 import com.molyavin.expensetracker.presentation.viewmodel.home.HomeViewModel
@@ -26,4 +27,5 @@ interface AppComponent {
     fun provideAddTransactionViewModel(): AddTransactionViewModel
     fun provideSettingViewModel(): SettingViewModel
     fun provideStatisticsViewModel(): StatisticsViewModel
+    fun provideEditTransactionViewModel(): EditTransactionViewModel
 }

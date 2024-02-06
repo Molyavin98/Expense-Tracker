@@ -1,11 +1,13 @@
 package com.molyavin.expensetracker.di.module
 
 import android.content.Context
+import androidx.room.Room
 import com.google.firebase.auth.FirebaseAuth
 import com.molyavin.expensetracker.data.repository.SettingRepository
 import com.molyavin.expensetracker.data.repository.SettingRepositoryImpl
 import com.molyavin.expensetracker.data.repository.UserRepository
 import com.molyavin.expensetracker.data.repository.UserRepositoryImpl
+import com.molyavin.expensetracker.data.room.DBRoom
 import com.molyavin.expensetracker.data.storage.DBSharedPreference
 import com.molyavin.expensetracker.di.scope.AppScope
 import com.molyavin.expensetracker.presentation.navigation.DefaultNavigator
@@ -33,7 +35,10 @@ class AppModule(private val context: Context) {
 
     @Provides
     @AppScope
-    fun provideDataBase(firebaseAuth: FirebaseAuth, dbSharedPreference: DBSharedPreference): UserRepository =
+    fun provideDataBase(
+        firebaseAuth: FirebaseAuth,
+        dbSharedPreference: DBSharedPreference
+    ): UserRepository =
         UserRepositoryImpl(fireBaseAunt = firebaseAuth, dbSharedPreference = dbSharedPreference)
 
     @Provides
@@ -50,4 +55,9 @@ class AppModule(private val context: Context) {
     fun provideOnBoardingRepository(dbSharedPreference: DBSharedPreference): SettingRepository =
         SettingRepositoryImpl(dbSharedPreference)
 
+    @Provides
+    @AppScope
+    fun provideMainDB(): DBRoom {
+        return Room.databaseBuilder(context, DBRoom::class.java, "main.db").build()
+    }
 }

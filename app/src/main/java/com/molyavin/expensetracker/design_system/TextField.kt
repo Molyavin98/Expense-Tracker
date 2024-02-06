@@ -155,6 +155,7 @@ fun DefaultTextField(
     onValueChange: (TextFieldValue) -> Unit,
     label: String = "",
     hint: String,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     focusColor: Color = AppTheme.colors.onBackground.primary,
     unFocusColor: Color = AppTheme.colors.onBackground.grey
 ) = DefaultTextField(
@@ -163,6 +164,7 @@ fun DefaultTextField(
     label = label,
     hint = hint,
     focusColor = focusColor,
+    keyboardOptions = keyboardOptions,
     unFocusColor = unFocusColor,
     visualTransformation = VisualTransformation.None,
     modifierText = modifier,

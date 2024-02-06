@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.molyavin.expensetracker.R
 
 
@@ -125,10 +126,13 @@ fun DefaultTwoTextBox(
 fun TransactionsItem(
     modifier: Modifier = Modifier,
     text: String,
-    sum: Double,
+    sum: Float,
     profit: Boolean = false,
+    date: String,
     colorTitle: Color = AppTheme.colors.onBackground.primary,
     colorSum: Color = if (profit) AppTheme.colors.primaryHover else AppTheme.colors.error,
+    onDeleteClick: () -> Unit,
+    onEditClick: () -> Unit,
     textStyle: TextStyle = AppTheme.typography.s3
 ) {
 
@@ -141,11 +145,11 @@ fun TransactionsItem(
         .clickable { isExpanded = !isExpanded }
         .background(AppTheme.colors.onBackground.lightGrey))
     {
-        Row(modifier = Modifier.height(50.dp)) {
+        Row(modifier = Modifier.height(35.dp)) {
             Text(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 8.dp)
+                    .padding(start = Spacing.S)
                     .align(Alignment.CenterVertically),
                 text = text,
                 color = colorTitle,
@@ -153,23 +157,33 @@ fun TransactionsItem(
             )
             Text(
                 modifier = Modifier
-                    .padding(end = 8.dp)
+                    .padding(end = Spacing.S)
                     .align(Alignment.CenterVertically),
                 text = if (profit) "+$sum" else "-$sum",
                 color = colorSum,
                 style = textStyle
             )
         }
+        Text(
+            modifier = Modifier
+                .padding(start = Spacing.S, bottom = Spacing.S),
+            text = date,
+            color = AppTheme.colors.onBackground.mediumGrey,
+            style = textStyle.copy(fontSize = 12.sp)
+        )
+
         if (isExpanded) {
             Row {
                 ButtonTransparent(
                     modifier = Modifier.weight(1f),
                     text = stringResource(id = R.string.text_btn_delete),
-                    onClick = {})
+                    onClick = onDeleteClick
+                )
                 ButtonTransparent(
                     modifier = Modifier.weight(1f),
                     text = stringResource(id = R.string.text_btn_edit),
-                    onClick = {})
+                    onClick = onEditClick
+                )
             }
         }
     }

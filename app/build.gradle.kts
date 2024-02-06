@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.firebase-perf")
 }
@@ -51,6 +51,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -87,16 +91,18 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.6")
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //Dagger 2
-    implementation ("com.google.dagger:dagger-android:2.50")
-    implementation ("com.google.dagger:dagger-android-support:2.50")
-    annotationProcessor ("com.google.dagger:dagger-android-processor:2.50")
-    kapt ("com.google.dagger:dagger-compiler:2.50")
+    implementation("com.google.dagger:dagger-android:2.50")
+    implementation("com.google.dagger:dagger-android-support:2.50")
+    annotationProcessor("com.google.dagger:dagger-android-processor:2.50")
+    kapt("com.google.dagger:dagger-compiler:2.50")
     //Test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
