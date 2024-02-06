@@ -148,6 +148,7 @@ fun ButtonTransparent(
         .padding(start = Spacing.S, end = Spacing.XS, bottom = Spacing.S)
         .size(50.dp),
     text = text,
+    textStyle = AppTheme.typography.buttonM,
     colors = colors,
     border = border,
     onClick = onClick

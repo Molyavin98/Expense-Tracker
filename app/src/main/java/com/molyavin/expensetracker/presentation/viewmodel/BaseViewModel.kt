@@ -1,10 +1,7 @@
 package com.molyavin.expensetracker.presentation.viewmodel
 
-import android.content.Context
-import android.content.Intent
-import androidx.activity.ComponentActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
+import com.molyavin.expensetracker.domain.model.TransactionVM
 import com.molyavin.expensetracker.presentation.navigation.Navigator
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +18,10 @@ open class BaseViewModel @Inject constructor(
 
     fun nextScreen(screen: Class<*>) {
         navigator.navigateTo(screen)
+    }
+
+    fun nextScreen(destination: Class<*>, params: Map<String, Any>) {
+        navigator.navigateTo(destination, params)
     }
 
     fun navigateBack() {
@@ -41,4 +42,16 @@ open class BaseViewModel @Inject constructor(
             onError?.invoke(t)
         }
     }
+
+    open fun onCreate() {}
+
+    open fun onStart() {}
+
+    open fun onResume() {}
+
+    open fun onPause() {}
+
+    open fun onStop() {}
+
+    open fun onDestroy() {}
 }
