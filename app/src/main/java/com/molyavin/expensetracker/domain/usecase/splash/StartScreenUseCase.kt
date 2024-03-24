@@ -1,7 +1,7 @@
 package com.molyavin.expensetracker.domain.usecase.splash
 
 import com.molyavin.expensetracker.domain.usecase.auth.GetStatusRememberMeUseCase
-import com.molyavin.expensetracker.domain.usecase.base.IUseCase
+import com.molyavin.expensetracker.domain.usecase.IUseCase
 import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationScreen
 import com.molyavin.expensetracker.presentation.screen.home.HomeScreen
 import javax.inject.Inject

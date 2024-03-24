@@ -31,9 +31,8 @@ import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.design_system.TopAppName
 import com.molyavin.expensetracker.design_system.TransactionsItem
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.domain.model.TransactionVM
-import com.molyavin.expensetracker.presentation.screen.BaseScreen
-import com.molyavin.expensetracker.presentation.viewmodel.home.HomeViewModel
+import com.molyavin.expensetracker.domain.model.Transaction
+import com.molyavin.expensetracker.presentation.BaseScreen
 
 class HomeScreen : BaseScreen() {
 
@@ -119,7 +118,7 @@ class HomeScreen : BaseScreen() {
                             onDeleteClick = { viewModel.deleteItem(it) },
                             onEditClick = {
                                 viewModel.nextScreenEdit(
-                                    TransactionVM(
+                                    Transaction(
                                         id = it.id,
                                         label = it.title,
                                         amount = it.amount,

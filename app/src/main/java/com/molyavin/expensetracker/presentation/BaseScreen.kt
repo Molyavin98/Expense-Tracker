@@ -1,4 +1,4 @@
-package com.molyavin.expensetracker.presentation.screen
+package com.molyavin.expensetracker.presentation
 
 import ExpenseTrackerTheme
 import android.os.Bundle
@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import com.molyavin.expensetracker.design_system.AppTheme
 import com.molyavin.expensetracker.design_system.Scaffold
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
+import com.molyavin.expensetracker.presentation.BaseViewModel
 
 abstract class BaseScreen : ComponentActivity() {
 

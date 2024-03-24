@@ -1,12 +1,12 @@
-package com.molyavin.expensetracker.presentation.viewmodel.add_transaction
+package com.molyavin.expensetracker.presentation.screen.transaction
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
-import com.molyavin.expensetracker.data.room.TransactionEntity
-import com.molyavin.expensetracker.domain.model.TransactionVM
+import com.molyavin.expensetracker.data.local.model.TransactionDTO
+import com.molyavin.expensetracker.domain.model.Transaction
 import com.molyavin.expensetracker.domain.usecase.transaction.EditTransactionUseCase
+import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.presentation.navigation.Navigator
-import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,16 +41,16 @@ class EditTransactionViewModel @Inject constructor(
         _isIncome.value = value
     }
 
-    fun editTransaction(transactionEntity: TransactionEntity) {
+    fun editTransaction(transactionDTO: TransactionDTO) {
         viewModelScope.launch {
             _isLoading.value = true
             delay(200)
-            editTransactionUseCase.execute(transactionEntity)
+            editTransactionUseCase.execute(transactionDTO)
             _isLoading.value = false
         }
     }
 
-    fun initializeWithTransactionData(transactionData: TransactionVM) {
+    fun initializeWithTransactionData(transactionData: Transaction) {
         setLabel(TextFieldValue(transactionData.label))
         setAmount(TextFieldValue(transactionData.amount.toString()))
         setIsIncome(transactionData.isIncome)

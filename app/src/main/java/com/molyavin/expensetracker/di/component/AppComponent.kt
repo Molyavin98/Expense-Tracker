@@ -4,14 +4,14 @@ import com.molyavin.expensetracker.presentation.screen.home.HomeScreen
 import com.molyavin.expensetracker.di.module.AppModule
 import com.molyavin.expensetracker.di.module.ToasterModule
 import com.molyavin.expensetracker.di.scope.AppScope
-import com.molyavin.expensetracker.presentation.viewmodel.add_transaction.AddTransactionViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.add_transaction.EditTransactionViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.auth.AuthorizationViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.auth.RegistrationViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.home.HomeViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.setting.SettingViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.spalsh.SplashViewModel
-import com.molyavin.expensetracker.presentation.viewmodel.statistics.StatisticsViewModel
+import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionViewModel
+import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionViewModel
+import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationViewModel
+import com.molyavin.expensetracker.presentation.screen.auth.RegistrationViewModel
+import com.molyavin.expensetracker.presentation.screen.home.HomeViewModel
+import com.molyavin.expensetracker.presentation.screen.setting.SettingViewModel
+import com.molyavin.expensetracker.presentation.screen.splash.SplashViewModel
+import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsViewModel
 import dagger.Component
 
 @AppScope

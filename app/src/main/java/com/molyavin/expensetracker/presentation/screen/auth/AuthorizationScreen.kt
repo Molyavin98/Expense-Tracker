@@ -1,6 +1,7 @@
 package com.molyavin.expensetracker.presentation.screen.auth
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,19 +19,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.molyavin.expensetracker.design_system.DefaultText
-import com.molyavin.expensetracker.design_system.DividerOr
 import com.molyavin.expensetracker.R
 import com.molyavin.expensetracker.design_system.AuthFooter
 import com.molyavin.expensetracker.design_system.DefaultButton
+import com.molyavin.expensetracker.design_system.DefaultCheckBox
 import com.molyavin.expensetracker.design_system.DefaultEmailField
 import com.molyavin.expensetracker.design_system.DefaultImageLogo
 import com.molyavin.expensetracker.design_system.DefaultPasswordField
 import com.molyavin.expensetracker.design_system.DefaultSocialAuthButton
-import com.molyavin.expensetracker.design_system.DefaultCheckBox
+import com.molyavin.expensetracker.design_system.DefaultText
+import com.molyavin.expensetracker.design_system.DividerOr
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseScreen
-import com.molyavin.expensetracker.presentation.viewmodel.auth.AuthorizationViewModel
+import com.molyavin.expensetracker.presentation.BaseScreen
 
 class AuthorizationScreen : BaseScreen() {
 

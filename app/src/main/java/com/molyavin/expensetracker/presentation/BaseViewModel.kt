@@ -1,7 +1,6 @@
-package com.molyavin.expensetracker.presentation.viewmodel
+package com.molyavin.expensetracker.presentation
 
 import androidx.lifecycle.ViewModel
-import com.molyavin.expensetracker.domain.model.TransactionVM
 import com.molyavin.expensetracker.presentation.navigation.Navigator
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +25,10 @@ open class BaseViewModel @Inject constructor(
 
     fun navigateBack() {
         navigator.navigateBack()
+    }
+
+    fun exitFromAccount(destination: Class<*>) {
+        navigator.exitFromAccount(destination)
     }
 
     fun showMessage(message: String) {

@@ -28,8 +28,7 @@ import com.molyavin.expensetracker.design_system.DefaultSocialAuthButton
 import com.molyavin.expensetracker.design_system.DefaultText
 import com.molyavin.expensetracker.design_system.DividerOr
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseScreen
-import com.molyavin.expensetracker.presentation.viewmodel.auth.RegistrationViewModel
+import com.molyavin.expensetracker.presentation.BaseScreen
 
 class RegistrationScreen : BaseScreen() {
 

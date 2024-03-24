@@ -18,7 +18,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -164,5 +166,17 @@ fun ButtonClose(modifier: Modifier = Modifier, onClick: () -> Unit) = Icon(
     tint = AppTheme.colors.onBackground.primary,
     contentDescription = null
 )
+
+@Composable
+fun ButtonBack(modifier: Modifier = Modifier, onClick: () -> Unit) = Icon(
+    modifier = modifier
+        .size(40.dp)
+        .clip(AppTheme.shapes.button)
+        .clickable { onClick() },
+    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+    tint = AppTheme.colors.onBackground.primary,
+    contentDescription = null
+)
+
 
 

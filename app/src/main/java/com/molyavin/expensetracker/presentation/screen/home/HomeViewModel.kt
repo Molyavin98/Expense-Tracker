@@ -1,16 +1,16 @@
-package com.molyavin.expensetracker.presentation.viewmodel.home
+package com.molyavin.expensetracker.presentation.screen.home
 
 import androidx.lifecycle.viewModelScope
-import com.molyavin.expensetracker.data.room.TransactionEntity
-import com.molyavin.expensetracker.domain.model.TransactionVM
+import com.molyavin.expensetracker.data.local.model.TransactionDTO
+import com.molyavin.expensetracker.domain.model.Transaction
 import com.molyavin.expensetracker.domain.usecase.transaction.DeleteTransactionUseCase
 import com.molyavin.expensetracker.domain.usecase.transaction.GetTransactionUseCase
+import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.presentation.navigation.Navigator
 import com.molyavin.expensetracker.presentation.screen.setting.SettingScreen
 import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsScreen
 import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionScreen
 import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionScreen
-import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,14 +19,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getTransactionUseCase: GetTransactionUseCase,
     private val deleteTransactionUseCase: DeleteTransactionUseCase,
+    private val getTransactionUseCase: GetTransactionUseCase,
     navigator: Navigator,
     toaster: Toaster
 ) : BaseViewModel(navigator, toaster) {
 
-    private val _itemsList = MutableStateFlow<List<TransactionEntity>>(emptyList())
-    val itemsList: StateFlow<List<TransactionEntity>> = _itemsList
+    private val _itemsList = MutableStateFlow<List<TransactionDTO>>(emptyList())
+    val itemsList: StateFlow<List<TransactionDTO>> = _itemsList
 
     override fun onStart() {
         super.onStart()
@@ -44,21 +44,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun deleteItem(transactionEntity: TransactionEntity) {
+    fun deleteItem(transactionDTO: TransactionDTO) {
         viewModelScope.launch {
             _isLoading.value = true
             delay(200)
-            deleteTransactionUseCase.execute(transactionEntity)
+            deleteTransactionUseCase.execute(transactionDTO)
             _isLoading.value = false
         }
     }
 
-    fun nextScreenEdit(transactionVM: TransactionVM) {
+    fun nextScreenEdit(transaction: Transaction) {
         val params = mutableMapOf<String, Any>()
-        params["id"] = transactionVM.id ?: 0
-        params["label"] = transactionVM.label
-        params["amount"] = transactionVM.amount
-        params["isIncome"] = transactionVM.isIncome
+        params["id"] = transaction.id ?: 0
+        params["label"] = transaction.label
+        params["amount"] = transaction.amount
+        params["isIncome"] = transaction.isIncome
 
         nextScreen(EditTransactionScreen::class.java, params)
     }

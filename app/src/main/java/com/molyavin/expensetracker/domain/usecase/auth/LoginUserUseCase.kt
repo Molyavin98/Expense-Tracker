@@ -1,9 +1,9 @@
 package com.molyavin.expensetracker.domain.usecase.auth
 
-import com.molyavin.expensetracker.data.local.dto.toDTO
+import com.molyavin.expensetracker.data.network.dto.toDTO
 import com.molyavin.expensetracker.data.repository.UserRepository
-import com.molyavin.expensetracker.domain.model.NewUserVM
-import com.molyavin.expensetracker.domain.usecase.base.IAsyncUseCase
+import com.molyavin.expensetracker.domain.model.NewUser
+import com.molyavin.expensetracker.domain.usecase.IAsyncUseCase
 import com.molyavin.expensetracker.utils.AppDispatchers
 import com.molyavin.expensetracker.utils.IncorrectUserInfoException
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -15,9 +15,9 @@ class LoginUserUseCase @Inject constructor(
     private val validateLoginUserInfoUseCase: ValidateLoginUserInfoUseCase,
     private val fireBaseRepository: UserRepository,
     private val dispatcher: AppDispatchers,
-) : IAsyncUseCase<NewUserVM, Boolean> {
+) : IAsyncUseCase<NewUser, Boolean> {
 
-    override suspend fun execute(income: NewUserVM): Boolean {
+    override suspend fun execute(income: NewUser): Boolean {
         return withContext(dispatcher.io) {
             val task = suspendCancellableCoroutine {
                 if (!validateLoginUserInfoUseCase.execute(income)) {

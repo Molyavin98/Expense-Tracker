@@ -13,8 +13,7 @@ import co.yml.charts.ui.piechart.models.PieChartConfig
 import co.yml.charts.ui.piechart.models.PieChartData
 import com.molyavin.expensetracker.design_system.AppTheme
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseScreen
-import com.molyavin.expensetracker.presentation.viewmodel.statistics.StatisticsViewModel
+import com.molyavin.expensetracker.presentation.BaseScreen
 
 class StatisticsScreen : BaseScreen() {
 

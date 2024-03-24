@@ -9,8 +9,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,8 +21,9 @@ import com.molyavin.expensetracker.design_system.DefaultRadioButton
 import com.molyavin.expensetracker.design_system.DefaultTextField
 import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseScreen
-import com.molyavin.expensetracker.presentation.viewmodel.add_transaction.AddTransactionViewModel
+import com.molyavin.expensetracker.presentation.BaseScreen
+import com.molyavin.expensetracker.utils.DateTimeFormatter
+import java.util.Calendar
 
 class AddTransactionScreen : BaseScreen() {
 
@@ -37,7 +36,7 @@ class AddTransactionScreen : BaseScreen() {
         Column(
             modifier = Modifier.padding(Spacing.M)
         ) {
-            ButtonClose(onClick = { finish() })
+            ButtonClose(onClick = viewModel::navigateBack)
 
             val label by viewModel.label.collectAsState()
             val amount by viewModel.amount.collectAsState()
@@ -84,6 +83,8 @@ class AddTransactionScreen : BaseScreen() {
                     text = "Expense"
                 )
             }
+            val currentDateTime = Calendar.getInstance()
+            val formattedDateTime = DateTimeFormatter.formatDateTime(currentDateTime)
 
             ButtonTransparent(
                 modifier = Modifier
@@ -91,6 +92,7 @@ class AddTransactionScreen : BaseScreen() {
                     .padding(start = Spacing.S, end = Spacing.S),
                 onClick = {
                     if (label.isNotNull() && amount.isNotNull()) {
+                        viewModel.setId(currentDateTime.timeInMillis)
                         viewModel.addTransactionItem()
                         finish()
                     }

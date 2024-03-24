@@ -1,4 +1,4 @@
-package com.molyavin.expensetracker.domain.usecase.base
+package com.molyavin.expensetracker.domain.usecase
 
 interface IAsyncUseCase<T, R> {
 

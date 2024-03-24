@@ -1,6 +1,6 @@
 package com.molyavin.expensetracker.domain.model
 
-data class TransactionVM(
+data class Transaction(
     val id: Int?,
     val label: String,
     val amount: Float,

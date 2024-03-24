@@ -1,12 +1,11 @@
-package com.molyavin.expensetracker.presentation.viewmodel.auth
+package com.molyavin.expensetracker.presentation.screen.auth
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
-import com.molyavin.expensetracker.domain.model.NewUserVM
+import com.molyavin.expensetracker.domain.model.NewUser
 import com.molyavin.expensetracker.domain.usecase.auth.RegisterUserUseCase
 import com.molyavin.expensetracker.presentation.navigation.Navigator
-import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationScreen
-import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
+import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,7 +45,7 @@ class RegistrationViewModel @Inject constructor(
 
     fun registration() {
 
-        val user = NewUserVM(
+        val user = NewUser(
             email = email.value.text,
             password = password.value.text,
             passwordConfirm = passwordConfirm.value.text

@@ -4,9 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.molyavin.expensetracker.domain.model.TransactionVM
 
-class DefaultNavigator(private val context: Context) : Navigator {
+class NavigatorManager(private val context: Context) : Navigator {
 
 
     override fun navigateTo(destination: Class<*>) {
@@ -30,6 +29,17 @@ class DefaultNavigator(private val context: Context) : Navigator {
     }
 
     override fun navigateBack() {
+        context.startActivity(Intent(context, context.javaClass))
+        (context as? Activity)?.finish()
+        (context as? Activity)?.overridePendingTransition(0, 0)
+    }
+
+    override fun exitFromAccount(authScreenClass: Class<*>) {
+        val intent = Intent(context, authScreenClass)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+        (context as? Activity)?.overridePendingTransition(0, 0)
         (context as? Activity)?.finish()
     }
+
 }

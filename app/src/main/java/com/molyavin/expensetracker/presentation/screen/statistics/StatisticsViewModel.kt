@@ -1,7 +1,7 @@
-package com.molyavin.expensetracker.presentation.viewmodel.statistics
+package com.molyavin.expensetracker.presentation.screen.statistics
 
 import com.molyavin.expensetracker.presentation.navigation.Navigator
-import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
+import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.utils.Toaster
 import javax.inject.Inject
 

@@ -1,12 +1,12 @@
-package com.molyavin.expensetracker.presentation.viewmodel.add_transaction
+package com.molyavin.expensetracker.presentation.screen.transaction
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
-import com.molyavin.expensetracker.data.room.TransactionEntity
+import com.molyavin.expensetracker.data.local.model.TransactionDTO
 import com.molyavin.expensetracker.domain.usecase.transaction.AddTransactionUseCase
+import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.presentation.navigation.Navigator
 import com.molyavin.expensetracker.presentation.screen.home.HomeScreen
-import com.molyavin.expensetracker.presentation.viewmodel.BaseViewModel
 import com.molyavin.expensetracker.utils.DateTimeFormatter
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +30,9 @@ class AddTransactionViewModel @Inject constructor(
     private var _isIncome = MutableStateFlow(true)
     val isIncome: StateFlow<Boolean> = _isIncome
 
+    private var _id = MutableStateFlow(0L)
+    val id: StateFlow<Long> = _id
+
 
     fun setLabel(newLabel: TextFieldValue) {
         _label.value = newLabel
@@ -43,6 +46,10 @@ class AddTransactionViewModel @Inject constructor(
         _isIncome.value = value
     }
 
+    fun setId(id: Long) {
+        _id.value = id
+    }
+
     fun goToHomeScreen() = nextScreen(HomeScreen::class.java)
 
     fun addTransactionItem() {
@@ -50,14 +57,14 @@ class AddTransactionViewModel @Inject constructor(
             val currentDateTime = Calendar.getInstance()
             val formattedDateTime = DateTimeFormatter.formatDateTime(currentDateTime)
 
-            val item = TransactionEntity(
+            val item = TransactionDTO(
                 title = label.value.text,
                 amount = amount.value.text.toFloat(),
                 isIncome = isIncome.value,
                 date = formattedDateTime
             )
             addTransactionUseCase.execute(item)
+
         }
     }
-
 }

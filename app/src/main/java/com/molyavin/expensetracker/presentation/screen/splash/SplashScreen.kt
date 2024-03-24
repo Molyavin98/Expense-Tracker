@@ -16,8 +16,7 @@ import com.molyavin.expensetracker.design_system.DefaultImageLogo
 import com.molyavin.expensetracker.design_system.DefaultText
 import com.molyavin.expensetracker.design_system.Surface
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.screen.BaseScreen
-import com.molyavin.expensetracker.presentation.viewmodel.spalsh.SplashViewModel
+import com.molyavin.expensetracker.presentation.BaseScreen
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : BaseScreen() {
@@ -49,7 +48,6 @@ class SplashScreen : BaseScreen() {
         }
         viewModel.startApp()
     }
-
 
     override fun onStop() {
         super.onStop()

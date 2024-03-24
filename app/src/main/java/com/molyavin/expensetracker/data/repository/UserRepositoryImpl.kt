@@ -3,8 +3,8 @@ package com.molyavin.expensetracker.data.repository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.molyavin.expensetracker.data.local.dto.NewUserDTO
-import com.molyavin.expensetracker.data.local.dto.UserDTO
+import com.molyavin.expensetracker.data.network.dto.NewUserDTO
+import com.molyavin.expensetracker.data.network.dto.UserDTO
 import com.molyavin.expensetracker.data.storage.DBSharedPreference
 import javax.inject.Inject
 
