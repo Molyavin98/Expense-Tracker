@@ -14,9 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.molyavin.expensetracker.R
 import com.molyavin.expensetracker.design_system.AppTheme
 import com.molyavin.expensetracker.design_system.AuthFooter
@@ -27,15 +29,24 @@ import com.molyavin.expensetracker.design_system.DefaultPasswordField
 import com.molyavin.expensetracker.design_system.DefaultSocialAuthButton
 import com.molyavin.expensetracker.design_system.DefaultText
 import com.molyavin.expensetracker.design_system.DividerOr
+import com.molyavin.expensetracker.design_system.IconSize
+import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.presentation.BaseScreen
+import com.molyavin.expensetracker.presentation.BaseSettingsScreen
+import com.molyavin.expensetracker.presentation.ObserveLifecycleEvents
 
-class RegistrationScreen : BaseScreen() {
+private val viewModel: RegistrationViewModel = Injector.INSTANCE.provideRegistrationViewModel()
 
-    override val viewModel: RegistrationViewModel = Injector.INSTANCE.provideRegistrationViewModel()
+@Composable
+fun RegistrationScreen(navController: NavController) {
+    viewModel.ObserveLifecycleEvents(LocalLifecycleOwner.current.lifecycle)
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val passwordConfirm by viewModel.passwordConfirm.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
-    @Composable
-    override fun Content() {
+    BaseSettingsScreen(isLoading = isLoading) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,19 +55,17 @@ class RegistrationScreen : BaseScreen() {
             DefaultImageLogo(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(24.dp),
+                    .padding(Spacing.L)
+                    .size(IconSize.XXL),
                 idImage = R.drawable.app_icon
             )
             DefaultText(text = stringResource(id = R.string.text_registration))
 
-            val email by viewModel.email.collectAsState()
-            val password by viewModel.password.collectAsState()
-            val passwordConfirm by viewModel.passwordConfirm.collectAsState()
 
             DefaultEmailField(
                 modifier = Modifier
-                    .padding(3.dp)
-                    .weight(50f),
+                    .padding(Spacing.XS)
+                    .weight(1f),
                 email = email,
                 onValueChange = { viewModel.setPhone(it) },
                 label = stringResource(id = R.string.label_email),
@@ -66,8 +75,8 @@ class RegistrationScreen : BaseScreen() {
 
             DefaultPasswordField(
                 modifier = Modifier
-                    .padding(3.dp)
-                    .weight(50f),
+                    .padding(Spacing.XS)
+                    .weight(1f),
                 password = password,
                 onValueChange = { viewModel.setPasswordOne(it) },
                 label = stringResource(id = R.string.label_password),
@@ -78,14 +87,13 @@ class RegistrationScreen : BaseScreen() {
 
             DefaultPasswordField(
                 modifier = Modifier
-                    .padding(3.dp)
-                    .weight(50f),
+                    .padding(Spacing.XS)
+                    .weight(1f),
                 password = passwordConfirm,
                 onValueChange = { viewModel.setPasswordTwo(it) },
                 label = stringResource(id = R.string.label_password),
                 hint = stringResource(id = R.string.password_confirm_field_hint),
             )
-
 
             DividerOr()
 
@@ -96,27 +104,27 @@ class RegistrationScreen : BaseScreen() {
 
             DefaultButton(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 80.dp)
+                    .padding(start = Spacing.M, end = Spacing.M, bottom = Spacing.S, top = 80.dp)
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.text_btn_create_account),
                 trailingIcon = {
                     Icon(
                         modifier = Modifier
-                            .padding(start = 8.dp)
-                            .size(16.dp),
+                            .padding(start = Spacing.S)
+                            .size(IconSize.XS),
                         painter = painterResource(id = R.drawable.arrow_right),
                         contentDescription = null,
                         tint = Color.White,
                     )
                 },
-                onClick = { viewModel.registration() },
+                onClick = { viewModel.registration(navController) },
             )
 
             AuthFooter(
-                modifier = Modifier.padding(bottom = 8.dp),
+                modifier = Modifier.padding(bottom = Spacing.S),
                 text = stringResource(id = R.string.text_reg_footer_log_in_account),
                 textButton = stringResource(id = R.string.text_reg_footer_btn),
-                onClick = { viewModel.startAuthScreen() },
+                onClick = { viewModel.startAuthScreen(navController) },
             )
         }
     }

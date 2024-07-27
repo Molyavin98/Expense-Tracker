@@ -1,25 +1,25 @@
 package com.molyavin.expensetracker.di.component
 
-import com.molyavin.expensetracker.presentation.screen.home.HomeScreen
 import com.molyavin.expensetracker.di.module.AppModule
+import com.molyavin.expensetracker.di.module.FirebaseModule
 import com.molyavin.expensetracker.di.module.ToasterModule
 import com.molyavin.expensetracker.di.scope.AppScope
-import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionViewModel
-import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionViewModel
+import com.molyavin.expensetracker.presentation.BaseScreen
+import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationViewModel
 import com.molyavin.expensetracker.presentation.screen.auth.RegistrationViewModel
 import com.molyavin.expensetracker.presentation.screen.home.HomeViewModel
 import com.molyavin.expensetracker.presentation.screen.setting.SettingViewModel
 import com.molyavin.expensetracker.presentation.screen.splash.SplashViewModel
 import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsViewModel
+import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionViewModel
+import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionViewModel
 import dagger.Component
 
 @AppScope
-@Component(modules = [AppModule::class, ToasterModule::class])
+@Component(modules = [AppModule::class, ToasterModule::class, FirebaseModule::class])
 interface AppComponent {
-
-    fun inject(activity: HomeScreen)
-
+    fun provideBaseViewModel(): BaseViewModel
     fun provideSplashViewModel(): SplashViewModel
     fun provideAuthorizationViewModel(): AuthorizationViewModel
     fun provideRegistrationViewModel(): RegistrationViewModel

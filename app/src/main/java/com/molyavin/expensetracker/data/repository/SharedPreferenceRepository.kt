@@ -1,7 +1,6 @@
 package com.molyavin.expensetracker.data.repository
 
-interface SettingRepository {
-
+interface SharedPreferenceRepository {
     fun saveSetting(key: String, setting: Boolean)
     fun saveSetting(key: String, setting: String)
     fun readSetting(key: String, defValue: Boolean): Boolean

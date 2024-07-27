@@ -1,22 +1,21 @@
 package com.molyavin.expensetracker.domain.usecase.transaction
 
-import com.molyavin.expensetracker.data.room.DBRoom
-import com.molyavin.expensetracker.data.local.model.TransactionDTO
+import com.molyavin.expensetracker.data.repository.FirebaseRepository
+import com.molyavin.expensetracker.data.network.dto.asPresentation
+import com.molyavin.expensetracker.domain.model.Transaction
 import com.molyavin.expensetracker.domain.usecase.IAsyncUseCase
 import com.molyavin.expensetracker.utils.AppDispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class
-fgiGetTransactionUseCase @Inject constructor(
-    private val database: DBRoom,
+class GetTransactionUseCase @Inject constructor(
+    private val firebaseRepository: FirebaseRepository,
     private val appDispatchers: AppDispatchers
-) : IAsyncUseCase<Unit, Flow<List<TransactionDTO>>> {
+) : IAsyncUseCase<Unit, List<Transaction>> {
 
-    override suspend fun execute(income: Unit): Flow<List<TransactionDTO>> {
+    override suspend fun execute(income: Unit): List<Transaction> {
         return withContext(appDispatchers.io) {
-            database.dao.getAllTransaction()
+            firebaseRepository.getTransactionItem().map { it.asPresentation() }
         }
     }
 }

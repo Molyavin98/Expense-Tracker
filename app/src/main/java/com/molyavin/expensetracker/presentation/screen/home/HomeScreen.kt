@@ -19,9 +19,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.molyavin.expensetracker.R
 import com.molyavin.expensetracker.design_system.AppTheme
 import com.molyavin.expensetracker.design_system.ButtonAdd
@@ -33,13 +35,17 @@ import com.molyavin.expensetracker.design_system.TransactionsItem
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.domain.model.Transaction
 import com.molyavin.expensetracker.presentation.BaseScreen
+import com.molyavin.expensetracker.presentation.BaseSettingsScreen
+import com.molyavin.expensetracker.presentation.ObserveLifecycleEvents
 
-class HomeScreen : BaseScreen() {
+private val viewModel: HomeViewModel = Injector.INSTANCE.provideHomeViewModel()
 
-    override val viewModel: HomeViewModel = Injector.INSTANCE.provideHomeViewModel()
+@Composable
+fun HomeScreen(navController: NavController) {
+    viewModel.ObserveLifecycleEvents(LocalLifecycleOwner.current.lifecycle)
+    val isLoading by viewModel.isLoading.collectAsState()
 
-    @Composable
-    override fun Content() {
+    BaseSettingsScreen(isLoading = isLoading) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier.padding(
@@ -49,7 +55,7 @@ class HomeScreen : BaseScreen() {
                     bottom = Spacing.M
                 )
             ) {
-                TopAppName(onClick = viewModel::nextScreenSetting)
+                TopAppName(onClick = { viewModel.nextScreenSetting(navController) })
 
                 DefaultTwoTextBox(
                     textTitle = stringResource(id = R.string.total_balance),
@@ -82,7 +88,7 @@ class HomeScreen : BaseScreen() {
 
                 LazyColumn(
                     modifier = Modifier.wrapContentSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.M),
                 ) {
 
                     item {
@@ -100,7 +106,7 @@ class HomeScreen : BaseScreen() {
                             Image(
                                 modifier = Modifier
                                     .weight(1f)
-                                    .clickable { viewModel.nextScreenStatistics() },
+                                    .clickable { viewModel.nextScreenStatistics(navController) },
                                 painter = painterResource(id = R.drawable.ic_statistics),
                                 contentDescription = null
                             )
@@ -113,29 +119,20 @@ class HomeScreen : BaseScreen() {
                         TransactionsItem(
                             text = it.title,
                             sum = it.amount,
-                            profit = it.isIncome,
-                            date = it.date ?: "",
+                            profit = it.income,
+                            date = it.date,
                             onDeleteClick = { viewModel.deleteItem(it) },
-                            onEditClick = {
-                                viewModel.nextScreenEdit(
-                                    Transaction(
-                                        id = it.id,
-                                        label = it.title,
-                                        amount = it.amount,
-                                        isIncome = it.isIncome,
-                                    )
-                                )
-                            }
+                            onEditClick = { viewModel.nextScreenEdit(navController, it.id) }
                         )
                     }
                 }
             }
 
             ButtonAdd(
-                onClick = viewModel::nextScreenAddTransaction,
+                onClick = { viewModel.nextScreenAddTransaction(navController) },
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
         }
     }
-
 }
+

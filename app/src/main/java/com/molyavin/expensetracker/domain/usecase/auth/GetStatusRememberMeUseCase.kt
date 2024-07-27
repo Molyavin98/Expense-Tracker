@@ -1,13 +1,13 @@
 package com.molyavin.expensetracker.domain.usecase.auth
 
-import com.molyavin.expensetracker.data.repository.SettingRepository
+import com.molyavin.expensetracker.data.repository.SharedPreferenceRepository
 import com.molyavin.expensetracker.domain.usecase.IUseCase
 import javax.inject.Inject
 
-class GetStatusRememberMeUseCase @Inject constructor(private val settingRepository: SettingRepository) :
+class GetStatusRememberMeUseCase @Inject constructor(private val sharedPreferenceRepository: SharedPreferenceRepository) :
     IUseCase<Any?, Boolean> {
 
     override fun execute(income: Any?): Boolean {
-        return settingRepository.readSetting("RememberMe", false)
+        return sharedPreferenceRepository.readSetting("RememberMe", false)
     }
 }

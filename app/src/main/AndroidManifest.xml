@@ -17,37 +17,7 @@
         android:theme="@style/Theme.ExpenseTracker"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.screen.transaction.EditTransactionScreen"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.screen.statistics.StatisticsScreen"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.screen.setting.SettingScreen"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.screen.transaction.AddTransactionScreen"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.ExpenseTracker"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.screen.auth.RegistrationScreen"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.screen.auth.AuthorizationScreen"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.screen.home.HomeScreen"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.screen.splash.SplashScreen"
+            android:name=".presentation.BaseScreen"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

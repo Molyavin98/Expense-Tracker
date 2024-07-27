@@ -13,3 +13,8 @@ object DateTimeFormatter {
         return dateFormat.format(calendar.time)
     }
 }
+
+fun dataTimeFormatter(): String {
+    val currentDateTime = Calendar.getInstance()
+    return DateTimeFormatter.formatDateTime(currentDateTime)
+}

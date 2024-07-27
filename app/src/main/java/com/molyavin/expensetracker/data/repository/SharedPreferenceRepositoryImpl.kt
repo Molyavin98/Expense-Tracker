@@ -3,8 +3,8 @@ package com.molyavin.expensetracker.data.repository
 import com.molyavin.expensetracker.data.storage.DBSharedPreference
 
 
-class SettingRepositoryImpl(private val sharedPreference: DBSharedPreference) :
-    SettingRepository {
+class SharedPreferenceRepositoryImpl(private val sharedPreference: DBSharedPreference) :
+    SharedPreferenceRepository {
 
     override fun saveSetting(key: String, setting: Boolean) {
         sharedPreference.saveValue(key = key, value = setting)

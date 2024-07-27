@@ -34,4 +34,6 @@
     <string name="text_text_field_amount">Сума</string>
     <string name="text_text_field_label_hint">Введіть мітку</string>
     <string name="text_text_field_amount_hint">Введіть суму</string>
+
+    <string name="text_or">або</string>
 </resources>

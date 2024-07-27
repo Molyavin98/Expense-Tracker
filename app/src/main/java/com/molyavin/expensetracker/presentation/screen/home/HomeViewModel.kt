@@ -1,18 +1,14 @@
 package com.molyavin.expensetracker.presentation.screen.home
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
-import com.molyavin.expensetracker.data.local.model.TransactionDTO
+import androidx.navigation.NavController
 import com.molyavin.expensetracker.domain.model.Transaction
 import com.molyavin.expensetracker.domain.usecase.transaction.DeleteTransactionUseCase
 import com.molyavin.expensetracker.domain.usecase.transaction.GetTransactionUseCase
 import com.molyavin.expensetracker.presentation.BaseViewModel
-import com.molyavin.expensetracker.presentation.navigation.Navigator
-import com.molyavin.expensetracker.presentation.screen.setting.SettingScreen
-import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsScreen
-import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionScreen
-import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionScreen
+import com.molyavin.expensetracker.presentation.navigation.Screen
 import com.molyavin.expensetracker.utils.Toaster
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,52 +17,46 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val deleteTransactionUseCase: DeleteTransactionUseCase,
     private val getTransactionUseCase: GetTransactionUseCase,
-    navigator: Navigator,
     toaster: Toaster
-) : BaseViewModel(navigator, toaster) {
+) : BaseViewModel(toaster) {
 
-    private val _itemsList = MutableStateFlow<List<TransactionDTO>>(emptyList())
-    val itemsList: StateFlow<List<TransactionDTO>> = _itemsList
+    private val _itemsList = MutableStateFlow<List<Transaction>>(emptyList())
+    val itemsList: StateFlow<List<Transaction>> = _itemsList
 
-    override fun onStart() {
-        super.onStart()
-        viewModelScope.launch {
-            _isLoading.value = true
-            delay(500)
-            load()
-            _isLoading.value = false
-        }
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        load()
     }
 
     private fun load() {
         viewModelScope.launch {
-            getTransactionUseCase.execute(Unit).collect { _itemsList.value = it }
+            startCoroutine(runnable = {
+                setLoading(true)
+                _itemsList.value = getTransactionUseCase.execute(Unit)
+                setLoading(false)
+            }, onError = {
+                showMessage(it?.message ?: "Error")
+            })
         }
     }
 
-    fun deleteItem(transactionDTO: TransactionDTO) {
+    fun deleteItem(transaction: Transaction) {
         viewModelScope.launch {
-            _isLoading.value = true
-            delay(200)
-            deleteTransactionUseCase.execute(transactionDTO)
-            _isLoading.value = false
+            deleteTransactionUseCase.execute(transaction)
+            load()
         }
     }
 
-    fun nextScreenEdit(transaction: Transaction) {
-        val params = mutableMapOf<String, Any>()
-        params["id"] = transaction.id ?: 0
-        params["label"] = transaction.label
-        params["amount"] = transaction.amount
-        params["isIncome"] = transaction.isIncome
+    fun nextScreenEdit(navController: NavController, id: String) =
+        navController.navigate(Screen.EditTransactionScreen.route.replace("{id}", id))
 
-        nextScreen(EditTransactionScreen::class.java, params)
-    }
+    fun nextScreenAddTransaction(navController: NavController) =
+        navController.navigate(Screen.AddTransactionScreen.route)
 
-    fun nextScreenAddTransaction() = nextScreen(AddTransactionScreen::class.java)
+    fun nextScreenSetting(navController: NavController) =
+        navController.navigate(Screen.SettingScreen.route)
 
-    fun nextScreenSetting() = nextScreen(SettingScreen::class.java)
-
-    fun nextScreenStatistics() = nextScreen(StatisticsScreen::class.java)
+    fun nextScreenStatistics(navController: NavController) =
+        navController.navigate(Screen.StatisticsScreen.route)
 
 }

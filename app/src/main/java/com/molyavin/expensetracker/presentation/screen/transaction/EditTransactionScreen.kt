@@ -1,6 +1,5 @@
 package com.molyavin.expensetracker.presentation.screen.transaction
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,12 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import co.yml.charts.common.extensions.isNotNull
 import com.molyavin.expensetracker.R
-import com.molyavin.expensetracker.data.local.model.TransactionDTO
 import com.molyavin.expensetracker.design_system.ButtonClose
 import com.molyavin.expensetracker.design_system.ButtonTransparent
 import com.molyavin.expensetracker.design_system.DefaultRadioButton
@@ -23,36 +22,33 @@ import com.molyavin.expensetracker.design_system.DefaultTextField
 import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.di.scope.Injector
 import com.molyavin.expensetracker.domain.model.Transaction
-import com.molyavin.expensetracker.presentation.BaseScreen
+import com.molyavin.expensetracker.presentation.BaseSettingsScreen
+import com.molyavin.expensetracker.presentation.ObserveLifecycleEvents
 import com.molyavin.expensetracker.utils.DateTimeFormatter
 import java.util.Calendar
 
-class EditTransactionScreen : BaseScreen() {
+private val viewModel: EditTransactionViewModel =
+    Injector.INSTANCE.provideEditTransactionViewModel()
 
-    override val viewModel: EditTransactionViewModel =
-        Injector.INSTANCE.provideEditTransactionViewModel()
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.initializeWithTransactionData(getTransactionData())
-    }
-
-    @SuppressLint("StateFlowValueCalledInComposition")
-    @Composable
-    override fun Content() {
+@Composable
+fun EditTransactionScreen(navController: NavController, id: String) {
+    viewModel.ObserveLifecycleEvents(LocalLifecycleOwner.current.lifecycle)
+    val isLoading by viewModel.isLoading.collectAsState()
+    BaseSettingsScreen(isLoading = isLoading) {
         Column(
             modifier = Modifier.padding(Spacing.M)
         ) {
-            ButtonClose(onClick = viewModel::navigateBack)
+            ButtonClose(onClick = { navController.popBackStack() })
 
+            viewModel.setId(id)
             val label by viewModel.label.collectAsState()
             val amount by viewModel.amount.collectAsState()
             val isIncome by viewModel.isIncome.collectAsState()
 
             DefaultTextField(
                 modifier = Modifier
-                    .padding(top = 3.dp, bottom = 3.dp)
-                    .weight(50f),
+                    .padding(vertical = Spacing.XS)
+                    .weight(1f),
                 value = label,
                 onValueChange = { viewModel.setLabel(it) },
                 label = stringResource(id = R.string.text_text_field_label),
@@ -61,8 +57,8 @@ class EditTransactionScreen : BaseScreen() {
 
             DefaultTextField(
                 modifier = Modifier
-                    .padding(top = 3.dp, bottom = 3.dp)
-                    .weight(50f),
+                    .padding(vertical = Spacing.XS)
+                    .weight(1f),
                 value = amount,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 onValueChange = { viewModel.setAmount(it) },
@@ -90,38 +86,19 @@ class EditTransactionScreen : BaseScreen() {
                 )
             }
 
-            val currentDateTime = Calendar.getInstance()
-            val formattedDateTime = DateTimeFormatter.formatDateTime(currentDateTime)
-
             ButtonTransparent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Spacing.S, end = Spacing.S),
                 onClick = {
                     if (label.isNotNull() && amount.isNotNull()) {
-                        viewModel.editTransaction(
-                            TransactionDTO(
-                                id = getTransactionData().id,
-                                title = label.text,
-                                amount = amount.text.toFloat(),
-                                isIncome = isIncome,
-                                date = formattedDateTime
-                            )
-                        )
-                        finish()
+                        viewModel.editTransaction()
+                        viewModel.goToHomeScreen(navController)
                     }
                 },
                 text = "Add transaction"
             )
         }
     }
-
-    private fun getTransactionData(): Transaction {
-        return Transaction(
-            id = intent.getIntExtra("id", 0),
-            label = intent.getStringExtra("label") ?: "",
-            amount = intent.getFloatExtra("amount", 0f),
-            isIncome = intent.getBooleanExtra("isIncome", false)
-        )
-    }
 }
+

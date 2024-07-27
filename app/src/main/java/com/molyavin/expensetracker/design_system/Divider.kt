@@ -11,13 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.molyavin.expensetracker.R
 
 @Composable
 fun Divider(modifier: Modifier = Modifier) = Box(
     modifier = modifier
-        .padding(start = 16.dp, top = 30.dp, end = 16.dp)
+        .padding(start = Spacing.M, end = Spacing.M)
         .fillMaxWidth()
         .height(1.dp)
         .background(Color.Gray)
@@ -27,7 +29,7 @@ fun Divider(modifier: Modifier = Modifier) = Box(
 fun DividerOr() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(top = 8.dp, bottom = 12.dp)
+        modifier = Modifier.padding(top = Spacing.S, bottom = Spacing.SM)
     ) {
         Box(
             modifier = Modifier
@@ -37,9 +39,9 @@ fun DividerOr() {
                 .background(Color.LightGray)
         )
         Text(
-            text = "or",
+            text = stringResource(id = R.string.text_or),
             modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp),
+                .padding(start = Spacing.S, end = Spacing.S),
             style = TextStyle(Color.Gray)
         )
         Box(

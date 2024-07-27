@@ -126,18 +126,16 @@ fun DefaultTwoTextBox(
 fun TransactionsItem(
     modifier: Modifier = Modifier,
     text: String,
-    sum: Float,
+    sum: Double,
     profit: Boolean = false,
     date: String,
     colorTitle: Color = AppTheme.colors.onBackground.primary,
-    colorSum: Color = if (profit) AppTheme.colors.primaryHover else AppTheme.colors.error,
     onDeleteClick: () -> Unit,
     onEditClick: () -> Unit,
     textStyle: TextStyle = AppTheme.typography.s3
 ) {
-
     var isExpanded by remember { mutableStateOf(false) }
-
+    val colorSum = if (profit) AppTheme.colors.primaryHover else AppTheme.colors.error
     Column(modifier = modifier
         .fillMaxWidth()
         .wrapContentHeight()

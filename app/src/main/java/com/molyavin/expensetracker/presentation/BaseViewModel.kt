@@ -1,38 +1,50 @@
 package com.molyavin.expensetracker.presentation
 
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import com.molyavin.expensetracker.presentation.navigation.Navigator
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 open class BaseViewModel @Inject constructor(
-    private val navigator: Navigator,
     private val toaster: Toaster
-) : ViewModel() {
+) : ViewModel(), DefaultLifecycleObserver {
 
-    protected val _isLoading = MutableStateFlow(false)
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun nextScreen(screen: Class<*>) {
-        navigator.navigateTo(screen)
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
     }
 
-    fun nextScreen(destination: Class<*>, params: Map<String, Any>) {
-        navigator.navigateTo(destination, params)
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
     }
 
-    fun navigateBack() {
-        navigator.navigateBack()
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
     }
 
-    fun exitFromAccount(destination: Class<*>) {
-        navigator.exitFromAccount(destination)
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
+    }
+
+    override fun onStop(owner: LifecycleOwner) {
+        super.onStop(owner)
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
     }
 
     fun showMessage(message: String) {
         toaster.show(message)
+    }
+
+    fun setLoading(loading: Boolean) {
+        _isLoading.value = loading
     }
 
     protected suspend fun startCoroutine(
@@ -46,15 +58,4 @@ open class BaseViewModel @Inject constructor(
         }
     }
 
-    open fun onCreate() {}
-
-    open fun onStart() {}
-
-    open fun onResume() {}
-
-    open fun onPause() {}
-
-    open fun onStop() {}
-
-    open fun onDestroy() {}
 }
