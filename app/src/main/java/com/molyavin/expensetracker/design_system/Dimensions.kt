@@ -11,6 +11,8 @@ object Spacing {
     val L = 24.dp
     val XL = 32.dp
     val XXL = 48.dp
+    val XXXL = 64.dp
+    val XXXXL = 96.dp
 }
 
 object Elevation {

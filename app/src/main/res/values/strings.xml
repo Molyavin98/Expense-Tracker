@@ -22,7 +22,7 @@
 
     <!-- Home screen-->
     <string name="exit_from_account">Exit from account</string>
-    <string name="total_balance">Total Balance</string>
+    <string name="my_budget">My budget</string>
     <string name="total_income">Total Income</string>
     <string name="total_expense">Total Expense</string>
     <string name="view_statistics">View statistics</string>
@@ -33,7 +33,21 @@
     <string name="text_text_field_label">Label</string>
     <string name="text_text_field_amount">Amount</string>
     <string name="text_text_field_label_hint">Enter label</string>
-    <string name="text_text_field_amount_hint">Enter label</string>
+    <string name="text_text_field_amount_hint">Enter amount</string>
 
     <string name="text_or">or</string>
+    <string name="text_save">Save</string>
+    <string name="text_add_transaction">Add transaction</string>
+    <string name="text_placeholder_notes">Notes</string>
+
+    <string name="category_1">Groceries and Supermarkets</string>
+    <string name="category_2">Installment Purchase</string>
+    <string name="category_3">Cafes and Restaurants</string>
+    <string name="category_4">Car</string>
+    <string name="category_5">Other</string>
+    <string name="category_6">Taxi</string>
+    <string name="category_7">Beauty and Health</string>
+    <string name="category_8">Clothing and Footwear</string>
+    <string name="category_9">Entertainment and Sports</string>
+    <string name="category_10">Travel</string>
 </resources>

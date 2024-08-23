@@ -5,8 +5,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.molyavin.expensetracker.domain.usecase.auth.SetStatusRememberMeUseCase
-import com.molyavin.expensetracker.domain.usecase.home.GetCurrencyUseCase
-import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationScreen
+import com.molyavin.expensetracker.domain.usecase.home.GetExchangeRateUseCase
+import com.molyavin.expensetracker.domain.usecase.setting.GetCurrencyUseCase
+import com.molyavin.expensetracker.domain.usecase.setting.SetCurrencyUseCase
 import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.presentation.navigation.Screen
 import com.molyavin.expensetracker.utils.AppDispatchers
@@ -15,12 +16,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.roundToLong
 
 class SettingViewModel @Inject constructor(
     private val setStatusRememberMeUseCase: SetStatusRememberMeUseCase,
     private val appDispatcher: AppDispatchers,
-    private val getCurrencyUseCase: GetCurrencyUseCase,
+    private val getExchangeRateUseCase: GetExchangeRateUseCase,
     toaster: Toaster
 ) : BaseViewModel(toaster) {
 
@@ -48,7 +48,7 @@ class SettingViewModel @Inject constructor(
     private fun loadCurrency() {
         viewModelScope.launch(appDispatcher.io) {
             startCoroutine(runnable = {
-                val currencyInfoList = getCurrencyUseCase.execute(null)
+                val currencyInfoList = getExchangeRateUseCase.execute(null)
 
                 currencyInfoList.filter { it.currencyCodeA == 840 && it.currencyCodeB == 980 }
                     .onEach {
@@ -74,7 +74,6 @@ class SettingViewModel @Inject constructor(
                         _currencyEuro.emit(currency)
                     }
             }, onError = { exception ->
-                showMessage("${exception?.message}")
                 exception?.printStackTrace()
             })
         }

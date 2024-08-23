@@ -3,19 +3,32 @@ package com.molyavin.expensetracker.design_system
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,13 +38,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.molyavin.expensetracker.R
+import com.molyavin.expensetracker.domain.model.mapCategories
 
 
 @Composable
@@ -61,128 +78,220 @@ fun DefaultImageLogo(
 )
 
 @Composable
-fun TopAppName(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) = Row(
-    modifier = modifier.padding(16.dp),
-    verticalAlignment = Alignment.CenterVertically
-) {
-    DefaultImageLogo(
-        modifier = Modifier.size(36.dp),
-        idImage = R.drawable.app_icon
-    )
-    DefaultText(
-        modifier = Modifier
-            .padding(start = 4.dp, end = 4.dp)
-            .weight(1f),
-        text = stringResource(id = R.string.app_name)
-    )
-
-    Icon(
-        modifier = Modifier.clickable { onClick() },
-        tint = AppTheme.colors.onBackground.primary,
-        imageVector = Icons.Default.Settings,
-        contentDescription = null
-    )
-
-}
-
-
-@Composable
 fun DefaultTwoTextBox(
     modifier: Modifier = Modifier,
     textTitle: String,
-    textNumber: Double,
-    colorSum: Color = AppTheme.colors.onBackground.primary
+    textNumber: String,
+    onClick: () -> Unit = {}
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
-        .height(80.dp)
+        .padding(Spacing.M)
         .clip(AppTheme.shapes.small)
-        .background(color = AppTheme.colors.onBackground.lightGrey),
-    contentAlignment = Alignment.Center
+        .clickable { onClick() },
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+    Column {
         Text(
-            style = AppTheme.typography.s3,
-            color = AppTheme.colors.onBackground.mediumGrey,
+            style = AppTheme.typography.h4,
+            color = Color.White,
             text = textTitle
         )
         Text(
             modifier = Modifier.padding(top = 4.dp),
-            style = AppTheme.typography.h3,
-            color = colorSum,
+            style = AppTheme.typography.h1,
+            color = Color.White,
             text = textNumber.toString()
         )
     }
+}
+
+@Composable
+fun colorBackgroundCategoryImage(): Color {
+    val isDarkTheme = isSystemInDarkTheme()
+    return if (isDarkTheme)
+        AppTheme.colors.highlight.lightMintGreene
+    else AppTheme.colors.highlight.extraLightOrange
 }
 
 
 @Composable
 fun TransactionsItem(
     modifier: Modifier = Modifier,
-    text: String,
-    sum: Double,
-    profit: Boolean = false,
-    date: String,
-    colorTitle: Color = AppTheme.colors.onBackground.primary,
+    sum: String,
+    categoryId: Int = 0,
     onDeleteClick: () -> Unit,
     onEditClick: () -> Unit,
     textStyle: TextStyle = AppTheme.typography.s3
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    val colorSum = if (profit) AppTheme.colors.primaryHover else AppTheme.colors.error
+    val categoryList = mapCategories()
+    val isDarkTheme = isSystemInDarkTheme()
+
+
+    val colorText = if (isDarkTheme)
+        AppTheme.colors.highlight.yellow
+    else AppTheme.colors.highlight.lightOrange
+
     Column(modifier = modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .clip(AppTheme.shapes.small)
         .clickable { isExpanded = !isExpanded }
-        .background(AppTheme.colors.onBackground.lightGrey))
+        .background(AppTheme.colors.onBackground.modal))
     {
-        Row(modifier = Modifier.height(35.dp)) {
-            Text(
+        Row(
+            modifier = Modifier.height(50.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(start = Spacing.S)
-                    .align(Alignment.CenterVertically),
-                text = text,
-                color = colorTitle,
-                style = textStyle
+                    .size(38.dp)
+                    .clip(AppTheme.shapes.large)
+                    .background(colorBackgroundCategoryImage())
+                    .padding(Spacing.S),
+                painter = painterResource(id = categoryList[categoryId].imageResId),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.size(Spacing.M))
+            Text(
+                modifier = Modifier.weight(1f),
+                text = stringResource(id = categoryList[categoryId].name),
+                style = AppTheme.typography.s2,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
-                modifier = Modifier
-                    .padding(end = Spacing.S)
-                    .align(Alignment.CenterVertically),
-                text = if (profit) "+$sum" else "-$sum",
-                color = colorSum,
+                modifier = Modifier.padding(end = Spacing.S),
+                text = sum,
+                color = colorText,
                 style = textStyle
+            )
+
+            if (isExpanded) {
+                Row {
+                    Button(
+                        modifier = Modifier
+                            .width(80.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = AppTheme.colors.highlight.mediumSeaGreen,
+                        ),
+                        onClick = {
+                            onEditClick()
+                            isExpanded = false
+                        },
+                        content = {
+                            Text(
+                                text = stringResource(id = R.string.text_btn_edit),
+                                style = AppTheme.typography.s3,
+                                color = Color.White
+                            )
+                        },
+                    )
+
+                    Button(
+                        modifier = Modifier
+                            .width(80.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = AppTheme.colors.secondary,
+                        ),
+                        onClick = {
+                            onDeleteClick()
+                            isExpanded = false
+                        },
+                        content = {
+                            Text(
+                                text = stringResource(id = R.string.text_btn_delete),
+                                style = AppTheme.typography.s3,
+                                color = Color.White
+                            )
+                        },
+                    )
+                }
+            }
+        }
+        Divider()
+    }
+}
+
+@Composable
+fun TabSwitcher(
+    firstTitle: String,
+    secondTitle: String,
+    state: Boolean,
+    onStateChanged: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = Spacing.M, vertical = Spacing.S)
+            .fillMaxWidth()
+            .height(40.dp)
+            .clip(AppTheme.shapes.button)
+            .background(color = AppTheme.colors.onBackground.mediumGrey)
+            .padding(Spacing.XXS)
+    ) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .clip(AppTheme.shapes.button)
+                .clickable(
+                    onClick = { onStateChanged(false) },
+                    indication = rememberRipple(bounded = true),
+                    interactionSource = remember { MutableInteractionSource() }
+                )
+                .run {
+                    if (!state) {
+                        background(
+                            color = AppTheme.colors.onSurface.primary,
+                            shape = AppTheme.shapes.button
+                        )
+                    } else {
+                        this
+                    }
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = firstTitle,
+                style = MaterialTheme.typography.subtitle1,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Medium,
+                color = AppTheme.colors.onSurface.modal,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
-        Text(
-            modifier = Modifier
-                .padding(start = Spacing.S, bottom = Spacing.S),
-            text = date,
-            color = AppTheme.colors.onBackground.mediumGrey,
-            style = textStyle.copy(fontSize = 12.sp)
-        )
 
-        if (isExpanded) {
-            Row {
-                ButtonTransparent(
-                    modifier = Modifier.weight(1f),
-                    text = stringResource(id = R.string.text_btn_delete),
-                    onClick = onDeleteClick
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .clip(AppTheme.shapes.button)
+                .clickable(
+                    onClick = { onStateChanged(true) },
+                    indication = rememberRipple(bounded = true),
+                    interactionSource = remember { MutableInteractionSource() }
                 )
-                ButtonTransparent(
-                    modifier = Modifier.weight(1f),
-                    text = stringResource(id = R.string.text_btn_edit),
-                    onClick = onEditClick
-                )
-            }
+                .run {
+                    if (state) {
+                        background(
+                            color = AppTheme.colors.onSurface.primary,
+                            shape = AppTheme.shapes.button
+                        )
+                    } else {
+                        this
+                    }
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = secondTitle,
+                style = AppTheme.typography.s2,
+                textAlign = TextAlign.Center,
+                color = AppTheme.colors.onSurface.modal,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }

@@ -86,7 +86,8 @@ internal val expenseTrackerLightColors: AppColors
                 barbiePink = ExpenseTrackerColors.BarbiePink,
                 lightBarbiePink = ExpenseTrackerColors.LightBarbiePink,
                 extraLightBarbiePink = ExpenseTrackerColors.ExtraLightBarbiePink,
-                darkBlueHover = ExpenseTrackerColors.DarkBlueHover
+                darkBlueHover = ExpenseTrackerColors.DarkBlueHover,
+                mediumSeaGreen = ExpenseTrackerColors.MediumSeaGreen
             ),
         )
     }
@@ -160,7 +161,8 @@ internal val expenseTrackerDarkColors: AppColors
                 lightBarbiePink = LalafoDarkColors.LightBarbiePink,
                 extraLightBarbiePink = LalafoDarkColors.ExtraLightBarbiePink,
 
-                darkBlueHover = LalafoDarkColors.DarkBlueHover
+                darkBlueHover = LalafoDarkColors.DarkBlueHover,
+                mediumSeaGreen = ExpenseTrackerColors.MediumSeaGreen
             ),
         )
     }
@@ -197,7 +199,7 @@ internal object ExpenseTrackerColors {
     val LightYellow = Color(0xffFFEEBB)
     val ExtraLightYellow = Color(0xffFFFAE9)
     val Orange = Color(0xffFF5A00)
-    val LightOrange = Color(0xffFFCDB2)
+    val LightOrange = Color(0xfff37a42)
     val ExtraLightOrange = Color(0xffFFEEE5)
     val Red = Color(0xffEE374F)
     val LightRed = Color(0xffFFBDD1)
@@ -205,6 +207,7 @@ internal object ExpenseTrackerColors {
     val BarbiePink = Color(0xffFD51D9)
     val LightBarbiePink = Color(0xffFECAF3)
     val ExtraLightBarbiePink = Color(0xffFEEDFB)
+    val MediumSeaGreen = Color(0xff43ce9a)
 
     object OnBackgroundColors {
         val Primary = Color(0xff0A1331)

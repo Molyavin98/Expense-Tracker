@@ -41,7 +41,6 @@ class RegistrationViewModel @Inject constructor(
 
     fun startAuthScreen(navController: NavController) {
         navController.navigate(Screen.AuthScreen.route)
-
     }
 
     fun registration(navController: NavController) {

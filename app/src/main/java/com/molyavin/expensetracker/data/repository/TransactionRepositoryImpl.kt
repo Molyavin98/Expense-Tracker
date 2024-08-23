@@ -6,14 +6,15 @@ import com.molyavin.expensetracker.data.network.dto.TransactionNewDTO
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class FirebaseRepositoryImpl @Inject constructor(
+class TransactionRepositoryImpl @Inject constructor(
     private val database: DatabaseReference,
     private val auth: FirebaseAuth
-) : FirebaseRepository {
+) : TransactionRepository {
 
     private fun getUserId(): String? {
         return auth.currentUser?.uid
     }
+
 
     override suspend fun setTransactionItem(entity: TransactionNewDTO) {
         val userId = getUserId() ?: return
@@ -44,7 +45,7 @@ class FirebaseRepositoryImpl @Inject constructor(
             .child(USERS)
             .child(userId)
             .child(TRANSACTIONS)
-            .child(entity.id?: "")
+            .child(entity.id ?: "")
             .setValue(entity)
     }
 
@@ -63,11 +64,10 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override suspend fun getTransactionItemById(id: String): TransactionNewDTO? {
         val userId = getUserId() ?: return null
-        val snapshot = database.child(USERS).child(userId).child(TRANSACTIONS).child(id).get().await()
+        val snapshot =
+            database.child(USERS).child(userId).child(TRANSACTIONS).child(id).get().await()
         return snapshot.getValue(TransactionNewDTO::class.java)
     }
-
-
 
     private companion object {
         const val USERS = "users"

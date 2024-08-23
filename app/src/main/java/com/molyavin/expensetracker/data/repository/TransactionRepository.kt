@@ -2,7 +2,9 @@ package com.molyavin.expensetracker.data.repository
 
 import com.molyavin.expensetracker.data.network.dto.TransactionNewDTO
 
-interface FirebaseRepository {
+interface TransactionRepository {
+
+
 
     suspend fun setTransactionItem(entity: TransactionNewDTO)
 
@@ -13,4 +15,5 @@ interface FirebaseRepository {
     suspend fun getTransactionItem(): List<TransactionNewDTO>
 
     suspend fun getTransactionItemById(id: String): TransactionNewDTO?
+
 }

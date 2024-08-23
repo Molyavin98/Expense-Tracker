@@ -3,6 +3,7 @@ package com.molyavin.expensetracker.design_system
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
@@ -19,10 +20,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -30,6 +31,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import co.yml.charts.common.extensions.isNotNull
 
 @Composable
 fun DefaultButton(
@@ -58,12 +60,19 @@ fun DefaultButton(
         colors = colors,
         contentPadding = contentPadding,
     ) {
-        Text(
-            text = text ?: "",
-            style = textStyle,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                modifier = if (trailingIcon.isNotNull()) Modifier.weight(1f) else Modifier,
+                text = text ?: "",
+                style = textStyle,
+            )
 
-        trailingIcon?.invoke()
+            trailingIcon?.invoke()
+        }
     }
 }
 
@@ -119,22 +128,6 @@ fun AuthFooter(
 }
 
 @Composable
-fun ButtonAdd(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) = DefaultButton(
-    shape = RoundedCornerShape(50.dp),
-    modifier = modifier
-        .padding(bottom = 16.dp, end = 16.dp)
-        .size(width = 60.dp, height = 60.dp),
-    text = "",
-    onClick = { onClick() },
-    trailingIcon = {
-        Icon(imageVector = Icons.Default.Add, contentDescription = null)
-    }
-)
-
-@Composable
 fun ButtonTransparent(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
@@ -143,18 +136,23 @@ fun ButtonTransparent(
         backgroundColor = Color.Transparent,
         contentColor = AppTheme.colors.onBackground.primary,
     ),
-    text: String
-) = DefaultButton(
-    modifier = modifier
-        .fillMaxWidth()
-        .padding(start = Spacing.S, end = Spacing.XS, bottom = Spacing.S)
-        .size(50.dp),
-    text = text,
-    textStyle = AppTheme.typography.buttonM,
-    colors = colors,
-    border = border,
-    onClick = onClick
-)
+    text: String,
+    trailingIcon: (@Composable () -> Unit)? = null,
+) {
+    DefaultButton(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = Spacing.S, end = Spacing.XS, bottom = Spacing.S)
+            .size(50.dp),
+        text = text,
+        textStyle = AppTheme.typography.buttonM,
+        colors = colors,
+        border = border,
+        onClick = onClick,
+        trailingIcon = trailingIcon
+    )
+}
+
 
 @Composable
 fun ButtonClose(modifier: Modifier = Modifier, onClick: () -> Unit) = Icon(

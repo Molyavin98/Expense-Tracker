@@ -96,5 +96,7 @@ data class HighlightColors(
     val lightBarbiePink: Color = Color.Unspecified,
     val extraLightBarbiePink: Color = Color.Unspecified,
 
-    val darkBlueHover: Color = Color.Unspecified
+    val darkBlueHover: Color = Color.Unspecified,
+
+    val mediumSeaGreen: Color = Color.Unspecified
 )

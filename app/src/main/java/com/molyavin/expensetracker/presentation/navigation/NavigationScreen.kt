@@ -3,11 +3,9 @@ package com.molyavin.expensetracker.presentation.navigation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.molyavin.expensetracker.design_system.Surface
 import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationScreen
 import com.molyavin.expensetracker.presentation.screen.auth.RegistrationScreen
@@ -15,8 +13,6 @@ import com.molyavin.expensetracker.presentation.screen.home.HomeScreen
 import com.molyavin.expensetracker.presentation.screen.setting.SettingScreen
 import com.molyavin.expensetracker.presentation.screen.splash.SplashScreen
 import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsScreen
-import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionScreen
-import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionScreen
 
 @Composable
 fun Navigation() {
@@ -40,16 +36,6 @@ fun Navigation() {
             }
             composable(Screen.SettingScreen.route) {
                 SettingScreen(navController = navController)
-            }
-            composable(Screen.AddTransactionScreen.route) {
-                AddTransactionScreen(navController = navController)
-            }
-            composable(
-                route = Screen.EditTransactionScreen.route,
-                arguments = listOf(navArgument("id") { type = NavType.StringType })
-            ) {
-                val id = it.arguments?.getString("id") ?: ""
-                EditTransactionScreen(navController = navController, id = id)
             }
             composable(Screen.StatisticsScreen.route) {
                 StatisticsScreen(navController = navController)

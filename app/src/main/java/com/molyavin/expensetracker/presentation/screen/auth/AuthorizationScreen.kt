@@ -46,7 +46,7 @@ fun AuthorizationScreen(navController: NavController) {
     val statusCheckBox by viewModel.statusCheckBox.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
-    BaseSettingsScreen(isLoading = isLoading) {
+    BaseSettingsScreen(isLoading = isLoading, showBottomNavBar = false) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,

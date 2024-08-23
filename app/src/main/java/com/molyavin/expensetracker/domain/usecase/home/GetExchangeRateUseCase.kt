@@ -6,7 +6,7 @@ import com.molyavin.expensetracker.domain.model.Currency
 import com.molyavin.expensetracker.domain.usecase.IAsyncUseCase
 import javax.inject.Inject
 
-class GetCurrencyUseCase @Inject constructor(
+class GetExchangeRateUseCase @Inject constructor(
     private val apiManagerType: ApiManagerType
 ) : IAsyncUseCase<Unit?, List<Currency>> {
 

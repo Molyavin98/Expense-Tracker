@@ -4,16 +4,17 @@ import com.molyavin.expensetracker.di.module.AppModule
 import com.molyavin.expensetracker.di.module.FirebaseModule
 import com.molyavin.expensetracker.di.module.ToasterModule
 import com.molyavin.expensetracker.di.scope.AppScope
-import com.molyavin.expensetracker.presentation.BaseScreen
 import com.molyavin.expensetracker.presentation.BaseViewModel
+import com.molyavin.expensetracker.presentation.bottom_sheet_dialog.currency.CurrencyBottomSheetViewModel
+import com.molyavin.expensetracker.presentation.bottom_sheet_dialog.transaction.AddBudgetBottomSheetViewModel
+import com.molyavin.expensetracker.presentation.bottom_sheet_dialog.transaction.AddTransactionBottomSheetViewModel
+import com.molyavin.expensetracker.presentation.bottom_sheet_dialog.transaction.EditTransactionBottomSheetViewModel
 import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationViewModel
 import com.molyavin.expensetracker.presentation.screen.auth.RegistrationViewModel
 import com.molyavin.expensetracker.presentation.screen.home.HomeViewModel
 import com.molyavin.expensetracker.presentation.screen.setting.SettingViewModel
 import com.molyavin.expensetracker.presentation.screen.splash.SplashViewModel
 import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsViewModel
-import com.molyavin.expensetracker.presentation.screen.transaction.AddTransactionViewModel
-import com.molyavin.expensetracker.presentation.screen.transaction.EditTransactionViewModel
 import dagger.Component
 
 @AppScope
@@ -24,8 +25,13 @@ interface AppComponent {
     fun provideAuthorizationViewModel(): AuthorizationViewModel
     fun provideRegistrationViewModel(): RegistrationViewModel
     fun provideHomeViewModel(): HomeViewModel
-    fun provideAddTransactionViewModel(): AddTransactionViewModel
     fun provideSettingViewModel(): SettingViewModel
     fun provideStatisticsViewModel(): StatisticsViewModel
-    fun provideEditTransactionViewModel(): EditTransactionViewModel
+
+    // Bottom sheet dialogs
+    fun provideEditTransactionViewModel(): EditTransactionBottomSheetViewModel
+    fun provideAddTransactionViewModel(): AddTransactionBottomSheetViewModel
+    fun provideAddBudgetViewModel(): AddBudgetBottomSheetViewModel
+    fun provideCurrencyBottomSheetViewModel(): CurrencyBottomSheetViewModel
+
 }

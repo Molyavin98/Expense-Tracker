@@ -2,6 +2,7 @@ package com.molyavin.expensetracker.design_system
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,16 +14,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.molyavin.expensetracker.R
 
 @Composable
-fun Divider(modifier: Modifier = Modifier) = Box(
+fun Divider(
+    modifier: Modifier = Modifier,
+    startPadding: Dp = 0.dp,
+    endPadding: Dp = 0.dp
+) = Box(
     modifier = modifier
-        .padding(start = Spacing.M, end = Spacing.M)
         .fillMaxWidth()
+        .padding(start = startPadding, end = endPadding)
         .height(1.dp)
-        .background(Color.Gray)
+        .background(AppTheme.colors.onBackground.grey)
 )
 
 @Composable

@@ -22,7 +22,7 @@
 
     <!-- Home screen-->
     <string name="exit_from_account">Вихід з акаунта</string>
-    <string name="total_balance">Загальний баланс</string>
+    <string name="my_budget">Мій бюджет</string>
     <string name="total_income">Загальний дохід</string>
     <string name="total_expense">Загальній витрати</string>
     <string name="view_statistics">Переглянути статистику</string>
@@ -36,4 +36,19 @@
     <string name="text_text_field_amount_hint">Введіть суму</string>
 
     <string name="text_or">або</string>
+    <string name="text_save">Сохранити</string>
+
+    <string name="text_add_transaction">Додати транзакцію</string>
+    <string name="text_placeholder_notes">Примітки</string>
+
+    <string name="category_1">Продукти та супермаркити</string>
+    <string name="category_2">Покупка частинами</string>
+    <string name="category_3">Кафе та ресторани</string>
+    <string name="category_4">Авто</string>
+    <string name="category_5">Інше</string>
+    <string name="category_6">Таксі</string>
+    <string name="category_7">Краса та здоров\'я</string>
+    <string name="category_8">Одят та взуття</string>
+    <string name="category_9">Розваги та спорт</string>
+    <string name="category_10">Подорожі</string>
 </resources>

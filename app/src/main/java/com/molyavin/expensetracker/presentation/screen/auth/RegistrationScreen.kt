@@ -32,7 +32,6 @@ import com.molyavin.expensetracker.design_system.DividerOr
 import com.molyavin.expensetracker.design_system.IconSize
 import com.molyavin.expensetracker.design_system.Spacing
 import com.molyavin.expensetracker.di.scope.Injector
-import com.molyavin.expensetracker.presentation.BaseScreen
 import com.molyavin.expensetracker.presentation.BaseSettingsScreen
 import com.molyavin.expensetracker.presentation.ObserveLifecycleEvents
 
@@ -46,7 +45,7 @@ fun RegistrationScreen(navController: NavController) {
     val passwordConfirm by viewModel.passwordConfirm.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
-    BaseSettingsScreen(isLoading = isLoading) {
+    BaseSettingsScreen(isLoading = isLoading, showBottomNavBar = false) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
