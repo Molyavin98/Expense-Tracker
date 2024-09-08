@@ -12,6 +12,7 @@ import com.molyavin.expensetracker.presentation.bottom_sheet_dialog.transaction.
 import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationViewModel
 import com.molyavin.expensetracker.presentation.screen.auth.RegistrationViewModel
 import com.molyavin.expensetracker.presentation.screen.home.HomeViewModel
+import com.molyavin.expensetracker.presentation.screen.news.NewsViewModel
 import com.molyavin.expensetracker.presentation.screen.setting.SettingViewModel
 import com.molyavin.expensetracker.presentation.screen.splash.SplashViewModel
 import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsViewModel
@@ -27,6 +28,8 @@ interface AppComponent {
     fun provideHomeViewModel(): HomeViewModel
     fun provideSettingViewModel(): SettingViewModel
     fun provideStatisticsViewModel(): StatisticsViewModel
+    fun provideBaseTransactionBottomSheetViewModel(): BaseViewModel
+    fun provideNewsViewModel(): NewsViewModel
 
     // Bottom sheet dialogs
     fun provideEditTransactionViewModel(): EditTransactionBottomSheetViewModel

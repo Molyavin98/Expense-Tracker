@@ -103,7 +103,6 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.size(Spacing.S))
             }
 
-            val sortedTransactions = transactions.sortedByDescending { it.date }
             val cornerShape = if (isExpanded.value) RoundedCornerShape(0.dp)
             else RoundedCornerShape(topStart = Spacing.L, topEnd = Spacing.L)
 
@@ -121,9 +120,12 @@ fun HomeScreen(navController: NavController) {
                 item {
                     TabSwitcher(
                         firstTitle = "Today",
-                        secondTitle = "Month",
+                        secondTitle = "All",
                         state = screenState != HistoryMode.TODAY,
-                        onStateChanged = viewModel::onScreenStateChanged
+                        onStateChanged = {
+                            viewModel.onScreenStateChanged(it)
+                            viewModel.fetchReload()
+                        }
                     )
                 }
 
@@ -144,7 +146,7 @@ fun HomeScreen(navController: NavController) {
                     }
                 }
 
-                items(sortedTransactions) { transaction ->
+                items(transactions) { transaction ->
                     Crossfade(targetState = screenState, label = "") { targetState ->
                         when (targetState) {
                             HistoryMode.TODAY -> {
@@ -164,8 +166,9 @@ fun HomeScreen(navController: NavController) {
                                     sum = "${transaction.amount} $currency",
                                     onDeleteClick = { viewModel.deleteItem(transaction) },
                                     categoryId = transaction.categoryId,
-                                    onEditClick = {
-                                        viewModel.setBottomSheetEditTransaction(true)
+                                    isAllTab = true,
+                                    onShowClick = {
+                                        viewModel.setBottomSheetShowTransaction(true)
                                         viewModel.setId(transaction.id)
                                     }
                                 )
@@ -189,6 +192,7 @@ private fun BottomSheetDialog() {
     val bottomSheetAddTransaction by viewModel.showBottomSheetAddTransaction.collectAsState()
     val bottomSheetAddBudget by viewModel.showBottomSheetAddBudget.collectAsState()
     val bottomSheetEditTransaction by viewModel.showBottomSheetEditTransaction.collectAsState()
+    val bottomSheetShowTransaction by viewModel.showBottomSheetShowTransaction.collectAsState()
 
     if (bottomSheetAddTransaction) {
         BottomSheetDefault(
@@ -219,16 +223,22 @@ private fun BottomSheetDialog() {
         )
     }
 
-    if (bottomSheetEditTransaction) {
+    if (bottomSheetEditTransaction || bottomSheetShowTransaction) {
         val id by viewModel.id.collectAsState()
 
         BottomSheetDefault(
-            onDismiss = { viewModel.setBottomSheetEditTransaction(false) },
+            skipPartiallyExpanded = true,
+            onDismiss = {
+                viewModel.setBottomSheetEditTransaction(false)
+                viewModel.setBottomSheetShowTransaction(false)
+            },
             content = {
                 EditTransactionBottomSheetDialog(
                     id = id,
-                    onClickSave = {
+                    isShowTransaction = bottomSheetShowTransaction,
+                    onClick = {
                         viewModel.setBottomSheetEditTransaction(false)
+                        viewModel.setBottomSheetShowTransaction(false)
                         viewModel.fetchReload()
                     })
             }

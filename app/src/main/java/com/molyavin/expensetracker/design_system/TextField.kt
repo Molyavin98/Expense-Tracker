@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.molyavin.expensetracker.R
+import kotlin.reflect.jvm.internal.impl.types.checker.TypeRefinementSupport.Enabled
 
 @Composable
 private fun DefaultTextField(
@@ -197,5 +200,42 @@ fun DefaultPasswordField(
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIconModifier = Modifier.clickable { passwordVisibility = !passwordVisibility },
         trailingIcon = if (passwordVisibility) R.drawable.baseline_visibility_24 else R.drawable.baseline_visibility_off_24
+    )
+}
+
+
+@Composable
+fun CustomTextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    placeholder: String? = null,
+    textStyle: TextStyle = AppTheme.typography.h1,
+    placeHolderTextStyle: TextStyle = AppTheme.typography.h1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    enabled: Boolean = true,
+) {
+    TextField(
+        modifier = Modifier.wrapContentHeight(),
+        value = value,
+        enabled = enabled,
+        keyboardOptions = keyboardOptions,
+        onValueChange = onValueChange,
+        placeholder = {
+            Text(
+                text = placeholder ?: "",
+                color = AppTheme.colors.onSurface.mediumGrey,
+                style = placeHolderTextStyle
+            )
+        },
+        textStyle = textStyle,
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            cursorColor = AppTheme.colors.onSurface.primary,
+            textColor = AppTheme.colors.onSurface.primary,
+            disabledIndicatorColor = Color.Transparent
+
+        ),
     )
 }

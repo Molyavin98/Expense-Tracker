@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.molyavin.expensetracker.domain.model.Budget
 import com.molyavin.expensetracker.domain.usecase.home.GetBudgetUseCase
 import com.molyavin.expensetracker.domain.usecase.home.SetBudgetUseCase
+import com.molyavin.expensetracker.domain.usecase.setting.GetCurrencyUseCase
 import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.utils.Toaster
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,13 +17,18 @@ import javax.inject.Inject
 class AddBudgetBottomSheetViewModel @Inject constructor(
     private val setBudgetUseCase: SetBudgetUseCase,
     private val getBudgetUseCase: GetBudgetUseCase,
+    private val getCurrencyUseCase: GetCurrencyUseCase,
     toaster: Toaster
 ) : BaseViewModel(toaster = toaster) {
+
+    private val _currency = MutableStateFlow("")
+    val currency: StateFlow<String> = _currency
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         viewModelScope.launch {
             _budget.value = TextFieldValue(getBudgetUseCase.execute(Unit).budget.toString())
+            _currency.value = getCurrencyUseCase.execute(Unit)
         }
     }
 

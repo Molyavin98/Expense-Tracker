@@ -5,13 +5,10 @@ import android.content.SharedPreferences
 
 class DBSharedPreference(context: Context) {
 
-    private var sharedPreferences: SharedPreferences
-    private var editor: SharedPreferences.Editor
+    private var sharedPreferences: SharedPreferences = context
+        .getSharedPreferences("DataBase", Context.MODE_PRIVATE)
 
-    init {
-        sharedPreferences = context.getSharedPreferences("DataBase", Context.MODE_PRIVATE)
-        editor = sharedPreferences.edit()
-    }
+    private var editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     fun saveData(key: String, data: String) {
         editor.putString(key, data)

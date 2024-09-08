@@ -7,6 +7,7 @@ data class Transaction(
     val title: String,
     val amount: Double,
     val date: String,
+    val dataTime: String,
     val categoryId: Int
 )
 
@@ -15,5 +16,6 @@ fun Transaction.asDomain() = TransactionNewDTO(
     title = title,
     amount = amount,
     date = date,
+    dataTime = dataTime,
     categoryId = categoryId
 )

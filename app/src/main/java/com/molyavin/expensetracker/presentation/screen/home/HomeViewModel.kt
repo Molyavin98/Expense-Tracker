@@ -10,8 +10,9 @@ import com.molyavin.expensetracker.domain.usecase.transaction.DeleteTransactionU
 import com.molyavin.expensetracker.domain.usecase.transaction.GetTransactionUseCase
 import com.molyavin.expensetracker.presentation.BaseViewModel
 import com.molyavin.expensetracker.presentation.navigation.Screen
-import com.molyavin.expensetracker.presentation.screen.setting.Currency
 import com.molyavin.expensetracker.utils.Toaster
+import com.molyavin.expensetracker.utils.dateFormatter
+import com.molyavin.expensetracker.utils.toCurrencySymbol
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -49,6 +50,9 @@ class HomeViewModel @Inject constructor(
     private val _showBottomSheetEditTransaction = MutableStateFlow(false)
     val showBottomSheetEditTransaction: StateFlow<Boolean> = _showBottomSheetEditTransaction
 
+    private val _showBottomSheetShowTransaction = MutableStateFlow(false)
+    val showBottomSheetShowTransaction: StateFlow<Boolean> = _showBottomSheetShowTransaction
+
     private val _totalAmount = MutableStateFlow("")
     val totalAmount: StateFlow<String> = _totalAmount
 
@@ -59,13 +63,12 @@ class HomeViewModel @Inject constructor(
 
     fun fetchReload() = load()
 
-
     private fun load() {
         viewModelScope.launch {
             startCoroutine(runnable = {
                 setLoading(true)
-                _itemsTransactionList.value = getTransactionUseCase.execute(Unit)
                 _budget.value = getBudgetUseCase.execute(Unit).budget.toString()
+                _itemsTransactionList.value = loadSortedTransaction()
                 loadCurrency()
                 getTotalAmount()
                 setLoading(false)
@@ -95,13 +98,18 @@ class HomeViewModel @Inject constructor(
     private fun loadCurrency() {
         viewModelScope.launch {
             val currency = getCurrencyUseCase.execute(null)
-            _currency.value = when {
-                currency.contains(Currency.USD) -> "$"
-                currency.contains(Currency.EUR) -> "€"
-                currency.contains(Currency.UAH) -> "₴"
-                else -> ""
-            }
+            _currency.value = currency.toCurrencySymbol()
         }
+    }
+
+    private suspend fun loadSortedTransaction(): List<Transaction> {
+        val transactionList = getTransactionUseCase.execute(Unit)
+
+        return if (screenState.value == HistoryMode.TODAY) {
+            transactionList.filter { it.date == dateFormatter() }
+        } else {
+            transactionList
+        }.sortedByDescending { it.dataTime }
     }
 
     fun nextScreenSetting(navController: NavController) =
@@ -123,9 +131,16 @@ class HomeViewModel @Inject constructor(
         _showBottomSheetEditTransaction.value = value
     }
 
+    fun setBottomSheetShowTransaction(value: Boolean) {
+        _showBottomSheetShowTransaction.value = value
+    }
+
     private fun getTotalAmount() {
         viewModelScope.launch {
-            val totalAmount = getTransactionUseCase.execute(Unit).sumOf { it.amount }
+            val totalAmount = getTransactionUseCase.execute(Unit)
+                .filter { it.date == dateFormatter() }
+                .sumOf { it.amount }
+
             _totalAmount.value = totalAmount.toString()
         }
     }

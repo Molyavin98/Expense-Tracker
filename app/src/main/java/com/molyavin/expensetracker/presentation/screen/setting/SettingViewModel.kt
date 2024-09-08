@@ -53,7 +53,7 @@ class SettingViewModel @Inject constructor(
                 currencyInfoList.filter { it.currencyCodeA == 840 && it.currencyCodeB == 980 }
                     .onEach {
                         val currency =
-                            "\uD83C\uDDFA\uD83C\uDDF8 ${
+                            "$DOLLAR_EMOJI ${
                                 String.format(
                                     "%.2f",
                                     it.rateBuy
@@ -65,7 +65,7 @@ class SettingViewModel @Inject constructor(
                 currencyInfoList.filter { it.currencyCodeA == 978 && it.currencyCodeB == 980 }
                     .onEach {
                         val currency =
-                            "\uD83C\uDDEA\uD83C\uDDFA ${
+                            "$EURO_EMOJI ${
                                 String.format(
                                     "%.2f",
                                     it.rateBuy
@@ -77,6 +77,11 @@ class SettingViewModel @Inject constructor(
                 exception?.printStackTrace()
             })
         }
+    }
+
+    companion object {
+        const val DOLLAR_EMOJI = "\uD83C\uDDFA\uD83C\uDDF8 "
+        const val EURO_EMOJI = "\uD83C\uDDEA\uD83C\uDDFA "
     }
 
 }

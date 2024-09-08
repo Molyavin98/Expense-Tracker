@@ -4,23 +4,20 @@ import ExpenseTrackerTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -30,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -102,8 +98,15 @@ class BaseScreen : ComponentActivity() {
                                 color = AppTheme.colors.onBackground.grey
                             )
                         } else {
-                            Navigation()
+                            AnimatedVisibility(
+                                visible = true,
+                                enter = fadeIn(),
+                                exit = fadeOut()
+                            ) {
+                                Navigation()
+                            }
                         }
+
                     }
                 }
             }
@@ -173,6 +176,17 @@ fun BottomNavigationBar(navController: NavController, onShowBottomSheet: (Boolea
             },
             selected = currentRoute == Screen.StatisticsScreen.route,
             onClick = { navController.navigate(Screen.StatisticsScreen.route) }
+        )
+
+        BottomNavigationItem(
+            icon = {
+                Icon(
+                    painterResource(id = R.drawable.ic_news),
+                    contentDescription = null
+                )
+            },
+            selected = currentRoute == Screen.NewsScreen.route,
+            onClick = { navController.navigate(Screen.NewsScreen.route) }
         )
 
     }

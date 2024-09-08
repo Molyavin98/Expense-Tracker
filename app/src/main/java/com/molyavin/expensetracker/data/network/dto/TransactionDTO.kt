@@ -7,6 +7,7 @@ data class TransactionNewDTO(
     val amount: Double? = null,
     val title: String? = null,
     val date: String? = null,
+    val dataTime: String? = null,
     val categoryId: Int? = null
 )
 
@@ -15,5 +16,6 @@ fun TransactionNewDTO.asPresentation() = Transaction(
     amount = amount ?: 0.0,
     title = title.orEmpty(),
     date = date.orEmpty(),
+    dataTime = dataTime.orEmpty(),
     categoryId = categoryId ?: 0
 )

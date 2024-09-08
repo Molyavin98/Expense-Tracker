@@ -7,6 +7,8 @@ import com.molyavin.expensetracker.data.repository.BudgetRepository
 import com.molyavin.expensetracker.data.repository.BudgetRepositoryImpl
 import com.molyavin.expensetracker.data.repository.CurrencyRepository
 import com.molyavin.expensetracker.data.repository.CurrencyRepositoryImpl
+import com.molyavin.expensetracker.data.repository.NewsLinkRepository
+import com.molyavin.expensetracker.data.repository.NewsLinkRepositoryImpl
 import com.molyavin.expensetracker.data.repository.TransactionRepository
 import com.molyavin.expensetracker.data.repository.TransactionRepositoryImpl
 import com.molyavin.expensetracker.data.repository.UserRepository
@@ -36,12 +38,22 @@ class FirebaseModule {
     ): BudgetRepository {
         return BudgetRepositoryImpl(database, auth)
     }
+
     @Provides
+    @AppScope
     fun provideCurrencyRepository(
         database: DatabaseReference,
         auth: FirebaseAuth
     ): CurrencyRepository {
         return CurrencyRepositoryImpl(database, auth)
+    }
+
+    @Provides
+    @AppScope
+    fun provideNewsLinkRepository(
+        database: DatabaseReference,
+    ): NewsLinkRepository {
+        return NewsLinkRepositoryImpl(database)
     }
 
     @Provides

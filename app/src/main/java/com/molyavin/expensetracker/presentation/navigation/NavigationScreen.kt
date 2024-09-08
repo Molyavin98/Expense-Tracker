@@ -10,6 +10,7 @@ import com.molyavin.expensetracker.design_system.Surface
 import com.molyavin.expensetracker.presentation.screen.auth.AuthorizationScreen
 import com.molyavin.expensetracker.presentation.screen.auth.RegistrationScreen
 import com.molyavin.expensetracker.presentation.screen.home.HomeScreen
+import com.molyavin.expensetracker.presentation.screen.news.NewsScreen
 import com.molyavin.expensetracker.presentation.screen.setting.SettingScreen
 import com.molyavin.expensetracker.presentation.screen.splash.SplashScreen
 import com.molyavin.expensetracker.presentation.screen.statistics.StatisticsScreen
@@ -42,6 +43,9 @@ fun Navigation() {
             }
             composable(Screen.EditProfileScreen.route) {
                 RegistrationScreen(navController = navController)
+            }
+            composable(Screen.NewsScreen.route) {
+                NewsScreen(navController = navController)
             }
         }
     }

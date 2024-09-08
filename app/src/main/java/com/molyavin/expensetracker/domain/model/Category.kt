@@ -1,6 +1,5 @@
 package com.molyavin.expensetracker.domain.model
 
-import androidx.compose.runtime.Composable
 import com.molyavin.expensetracker.R
 
 data class Category(val name: Int, val imageResId: Int)

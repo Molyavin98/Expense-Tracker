@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.molyavin.expensetracker.domain.usecase.setting.GetCurrencyUseCase
 import com.molyavin.expensetracker.domain.usecase.setting.SetCurrencyUseCase
 import com.molyavin.expensetracker.presentation.BaseViewModel
-import com.molyavin.expensetracker.presentation.screen.setting.Currency
 import com.molyavin.expensetracker.utils.Toaster
+import com.molyavin.expensetracker.utils.currencyToFlag
+import com.molyavin.expensetracker.utils.flagToCurrency
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -28,12 +29,7 @@ class CurrencyBottomSheetViewModel @Inject constructor(
 
     fun saveCurrency(currency: String) {
         viewModelScope.launch {
-            val currencyWithoutFlag = when {
-                currency.contains(Currency.USD_WITH_FLAG) -> Currency.USD
-                currency.contains(Currency.EUR_WITH_FLAG) -> Currency.EUR
-                currency.contains(Currency.UAH_WITH_FLAG) -> Currency.UAH
-                else -> ""
-            }
+            val currencyWithoutFlag = currency.flagToCurrency()
             setCurrencyUseCase.execute(currencyWithoutFlag)
             fetchingCurrency()
         }
@@ -42,12 +38,7 @@ class CurrencyBottomSheetViewModel @Inject constructor(
     private fun fetchingCurrency() {
         viewModelScope.launch {
             val currency = getCurrencyUseCase.execute(null)
-            _currency.value = when (currency) {
-                Currency.USD -> Currency.USD_WITH_FLAG
-                Currency.EUR -> Currency.EUR_WITH_FLAG
-                Currency.UAH -> Currency.UAH_WITH_FLAG
-                else -> ""
-            }
+            _currency.value = currency.currencyToFlag()
         }
     }
 
